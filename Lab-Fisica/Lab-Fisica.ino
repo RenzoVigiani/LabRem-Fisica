@@ -2,7 +2,7 @@
 #include <UIPEthernet.h>
 // lalalalal
 EthernetServer server = EthernetServer(22);
-
+// Esta es la rama convergente
 //////// VAriables de json //////////////
 // Estado
 int num_Lab=0;
