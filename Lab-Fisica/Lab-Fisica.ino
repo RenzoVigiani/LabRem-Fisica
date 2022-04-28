@@ -3,6 +3,8 @@
 // lalalalal
 EthernetServer server = EthernetServer(22);
 
+
+// Rama divergente
 //////// VAriables de json //////////////
 // Estado
 int num_Lab=0;
