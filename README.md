@@ -7,7 +7,7 @@ En este repositorio se realizarán los cambios a tener en cuenta para el avance 
 	{
 	"Estado": [ 0, true, false],
 	"Llaves": [false],
-	"Analogico": [	1,	0,	125,	542	]
+	"Analogico": [ 1,	0,	125,	542	]
 	}
 
 **Sintaxis**
@@ -33,4 +33,12 @@ En este repositorio se realizarán los cambios a tener en cuenta para el avance 
 
 **Diagrama general**
 
-![Lab de Fisica](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Diagramas.png)
+![Lab de Fisica 1](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_1.png)
+
+**Diagrama Vista superior**
+
+![Lab de Fisica 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_2.png)
+
+**Diagrama Vista frontal**
+
+![Lab de Fisica 3](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_3.png)
