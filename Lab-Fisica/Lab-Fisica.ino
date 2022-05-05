@@ -16,21 +16,35 @@ EthernetServer server = EthernetServer(22);
   int variable_2=0;
   int variable_3=0;
   ////////////////////
+  int distancia_act=0;
 
 ////////////// Funciones  ////////////////////
 void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med);
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med);
-//void valorSalidas(int);
-//void prueva_lab(int vueltas, bool Sentido);
-//void stopMotor(void);
+int Control_Motor(int motor, int distancia);
+void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int vueltas, bool sentido);
+void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4);
+void stopMotor(int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 
 //////////// declaración de salidas ///////////////////
+//---------------- Motores --------------------------//
 
-/////////// salidas para el motor 1////////////
-#define IN1  3
-#define IN2  4
-#define IN3  5
-#define IN4  6
+// Motor 1
+#define IN1_1  3
+#define IN2_1  4
+#define IN3_1  5
+#define IN4_1  6
+// Motor 2
+#define IN1_2  7
+#define IN2_2  8
+#define IN3_2  9
+#define IN4_2  10
+// Motor 3
+#define IN1_3  11
+#define IN2_3  12
+#define IN3_3  13
+#define IN4_3  14
+
 
 void setup() {
   // Initialize Arduino server parameters
@@ -48,11 +62,23 @@ void setup() {
   Serial.println(Ethernet.localIP());
  
   // declaro salidas para motor 1
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
+  pinMode(IN1_1, OUTPUT);
+  pinMode(IN2_1, OUTPUT);
+  pinMode(IN3_1, OUTPUT);
+  pinMode(IN4_1, OUTPUT);
+/*    // declaro salidas para motor 2
+  pinMode(IN1_2, OUTPUT);
+  pinMode(bobina_2_2, OUTPUT);
+  pinMode(Ibobina_32, OUTPUT);
+  pinMode(INbobina_4, OUTPUT);
+    // declaro salidas para motor 3
+  pinMode(IN1_3, OUTPUT);
+  pinMode(bobina_2_3, OUTPUT);
+  pinMode(Ibobina_33, OUTPUT);
+  pinMode(INbobina_4, OUTPUT);
   }
+*/
+}
 
 void loop() 
 {
@@ -165,14 +191,17 @@ void loop()
     }
   }
 }
+
 void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med)
 {
   Serial.println("Convergentes");
+  variable_0 = Control_Motor(1, distancia_fl);
+  delay(1000);  
+  variable_1 = Control_Motor(1, distancia_lp);    
   SW_0 = !diafragma;
-  variable_0 = distancia_fl + 1;
-  variable_1 = distancia_lp + 2;
   variable_2 = cant_med + 3;
 }
+
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med)
 {
   Serial.println("Divergentes");
@@ -181,128 +210,153 @@ void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int c
   variable_2 = distancia_l2p + 2;
   variable_3 = cant_med + 3;
 }
-/*
-void prueva_lab(int vueltas, bool Sentido)
-{ // Función de prueba para los lab
+
+int Control_Motor(int motor, int distancia)
+{
+  bool sentido = true; // true = derecha, false = izquierda
+  int vueltas = 0;
+  const int factor_vueltas = 50; //512
+  if (distancia > 0 and distancia < 100) // maximo movimiento es 100 mm
+  {
+    if (distancia_act > distancia) // tiene que retroceder
+    {
+      sentido = true;
+      vueltas = (distancia_act - distancia) * factor_vueltas; 
+
+    } 
+    if (distancia_act < distancia) // tiene que avanzar
+    {
+      sentido = false; 
+      vueltas = (distancia - distancia_act) * factor_vueltas;
+    }
+    Serial.print("Distancia requerida: ");
+    Serial.println(distancia);
+    distancia_act = distancia;  
+
+  }
+  else
+  {
+    Serial.println("Distancia no permitida");
+  }
+  switch (motor)  // se controla motor a mover
+  {
+    case 1:
+      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, vueltas, sentido);
+      break;
+    case 2:
+      Mover_Motor(IN1_2, IN2_2, IN3_2, IN4_2, vueltas, sentido);
+      break;
+    case 3:
+      Mover_Motor(IN1_3, IN2_3, IN3_3, IN4_3, vueltas, sentido);
+      break;
+    default:
+      Serial.println("El motor no existe");
+      break;
+  }
+  Serial.print("Distancia actual: ");
+  Serial.println(distancia_act);
+  return distancia_act;
+}
+void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int vueltas, bool sentido)
+{
   while((vueltas)>=0)
   {
-    Serial.println(vueltas);
-    if(Sentido)
+    Serial.println(vueltas/50);
+    if(sentido and (vueltas > 0))
     {
-      if(vueltas>0)
-      {        
-          for(int i=0;i<8;i++)
-          {
-          valorSalidas(i);
-          delay(5);
-          }            
-      }
-      else if(vueltas<=0)
-      {  
-        stopMotor();
-        enciendoled(pulsador_0,pulsador_1,pulsador_2,pulsador_3);
-      }
+      for(int i=0;i<8;i++)
+      {
+        valorSalidas(i,bobina_1,bobina_2,bobina_3,bobina_4);
+        delay(5);
+      }            
     }
-    else if(!Sentido) 
+    if(sentido and (vueltas <= 0))      
+    {  
+      stopMotor(bobina_1,bobina_2,bobina_3,bobina_4);
+    }
+    
+    if(!sentido and (vueltas > 0))
     {
-      if(vueltas>0){
-          for(int i=7;i>=0;i--)
-          {
-          valorSalidas(i);
-          delay(5);
-          }            
-      }else if(vueltas<=0)
-      {  
-        stopMotor();
-      }
+      for(int i=7;i>=0;i--)
+      {
+        valorSalidas(i,bobina_1,bobina_2,bobina_3,bobina_4);
+        delay(5);
+      }            
     }
+    
+    if(!sentido and (vueltas <= 0))      
+    {  
+      stopMotor(bobina_1,bobina_2,bobina_3,bobina_4);
+    }    
+    
     vueltas--;    
   }
 }
 
-void valorSalidas(int i)
+void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4)
 { // Salidas Motor
-  switch (i) 
+  switch (selector) 
   {
     case 0:
-      digitalWrite(IN1,1);
-      digitalWrite(IN2,0);
-      digitalWrite(IN3,0);
-      digitalWrite(IN4,0);
+      digitalWrite(bobina_1,1);
+      digitalWrite(bobina_2,0);
+      digitalWrite(bobina_3,0);
+      digitalWrite(bobina_4,0);
       break;
     case 1:
-      digitalWrite(IN1,1);
-      digitalWrite(IN2,1);
-      digitalWrite(IN3,0);
-      digitalWrite(IN4,0);
+      digitalWrite(bobina_1,1);
+      digitalWrite(bobina_2,1);
+      digitalWrite(bobina_3,0);
+      digitalWrite(bobina_4,0);
       break;
     case 2:
-      digitalWrite(IN1,0);
-      digitalWrite(IN2,1);
-      digitalWrite(IN3,0);
-      digitalWrite(IN4,0);
+      digitalWrite(bobina_1,0);
+      digitalWrite(bobina_2,1);
+      digitalWrite(bobina_3,0);
+      digitalWrite(bobina_4,0);
       break;
     case 3:
-      digitalWrite(IN1,0);
-      digitalWrite(IN2,1);
-      digitalWrite(IN3,1);
-      digitalWrite(IN4,0);
+      digitalWrite(bobina_1,0);
+      digitalWrite(bobina_2,1);
+      digitalWrite(bobina_3,1);
+      digitalWrite(bobina_4,0);
       break;
     case 4:
-      digitalWrite(IN1,0);
-      digitalWrite(IN2,0);
-      digitalWrite(IN3,1);
-      digitalWrite(IN4,0);
+      digitalWrite(bobina_1,0);
+      digitalWrite(bobina_2,0);
+      digitalWrite(bobina_3,1);
+      digitalWrite(bobina_4,0);
       break;
     case 5:
-      digitalWrite(IN1,0);
-      digitalWrite(IN2,0);
-      digitalWrite(IN3,1);
-      digitalWrite(IN4,1);
+      digitalWrite(bobina_1,0);
+      digitalWrite(bobina_2,0);
+      digitalWrite(bobina_3,1);
+      digitalWrite(bobina_4,1);
       break;
     case 6:
-      digitalWrite(IN1,0);
-      digitalWrite(IN2,0);
-      digitalWrite(IN3,0);
-      digitalWrite(IN4,1);
+      digitalWrite(bobina_1,0);
+      digitalWrite(bobina_2,0);
+      digitalWrite(bobina_3,0);
+      digitalWrite(bobina_4,1);
       break;
     case 7:
-      digitalWrite(IN1,1);
-      digitalWrite(IN2,0);
-      digitalWrite(IN3,0);
-      digitalWrite(IN4,1);
+      digitalWrite(bobina_1,1);
+      digitalWrite(bobina_2,0);
+      digitalWrite(bobina_3,0);
+      digitalWrite(bobina_4,1);
       break;
     default:
-      digitalWrite(IN1,0);
-      digitalWrite(IN2,0);
-      digitalWrite(IN3,0);
-      digitalWrite(IN4,0);
+      digitalWrite(bobina_1,0);
+      digitalWrite(bobina_2,0);
+      digitalWrite(bobina_3,0);
+      digitalWrite(bobina_4,0);
   }
 }
 
-void enciendoled(bool p0,bool p1,bool p2,bool p3)
+void stopMotor(int bobina_1, int bobina_2, int bobina_3, int bobina_4)
 {
-  if(p0)
-    digitalWrite(Led_0,HIGH);
-  else
-    digitalWrite(Led_0,LOW);
-   if(p1)
-    digitalWrite(Led_1,HIGH);
-   else
-    digitalWrite(Led_1,LOW);
-   if(p2)
-    digitalWrite(Led_2,HIGH);
-   else
-    digitalWrite(Led_2,LOW);
-   if(p3)
-    digitalWrite(Led_3,HIGH);
-   else
-    digitalWrite(Led_3,LOW);
+ digitalWrite(bobina_1, 0);
+ digitalWrite(bobina_2, 0);
+ digitalWrite(bobina_3, 0);
+ digitalWrite(bobina_4, 0); 
 }
-
-void stopMotor(){
- digitalWrite(IN1, 0);
- digitalWrite(IN2, 0);
- digitalWrite(IN3, 0);
- digitalWrite(IN4, 0); 
-}*/
