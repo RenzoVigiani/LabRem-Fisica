@@ -3,14 +3,29 @@
 
 
 EthernetServer server = EthernetServer(22);
+  //////// VAriables de json //////////////
+  // Estado
+  int num_Lab=0;
+  bool subLab=true;
+  bool iniLab=true;
+  // Llaves
+  bool SW_0=false;
+  // Analogico
+  int variable_0=0;
+  int variable_1=0;
+  int variable_2=0;
+  int variable_3=0;
+  ////////////////////
 
 ////////////// Funciones  ////////////////////
-void ControlPost(bool iniLab,bool subLab,bool SW_0,int variable_0,int variable_1,int variable_2,int variable_3);
-void valorSalidas(int);
-void prueva_lab(int vueltas, bool Sentido);
-void stopMotor(void);
+void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med);
+void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med);
+//void valorSalidas(int);
+//void prueva_lab(int vueltas, bool Sentido);
+//void stopMotor(void);
 
 //////////// declaración de salidas ///////////////////
+
 /////////// salidas para el motor 1////////////
 #define IN1  3
 #define IN2  4
@@ -41,20 +56,6 @@ void setup() {
 
 void loop() 
 {
-  //////// VAriables de json //////////////
-  // Estado
-  int num_Lab=0;
-  bool subLab=true;
-  bool iniLab=true;
-  // Llaves
-  bool SW_0=false;
-  // Analogico
-  int variable_0=0;
-  int variable_1=0;
-  int variable_2=0;
-  int variable_3=0;
-  ////////////////////
-
   //////////// Strings de comunicación /////////////
   char status[170] = {0};
   char instrucciones[150] = {0};
@@ -146,8 +147,16 @@ void loop()
 
         if(num_Lab==2)
         {
-          ControlPost(iniLab,subLab,SW_0,variable_0,variable_1,variable_2,variable_3);
-          Serial.println("Salidas asignadas");
+          if (subLab and iniLab)
+          {
+            Serial.println("Sub - Laboratorio: Lentes convergentes"); 
+            Convergentes(SW_0, variable_0, variable_1, variable_2);
+          }
+          else if (!subLab and iniLab)
+          {
+            Serial.println("Sub - Laboratorio: Lentes Divergentes");  
+            Divergentes(variable_0, variable_1, variable_2, variable_3);
+          }
         }
         else
         {
@@ -156,22 +165,23 @@ void loop()
     }
   }
 }
-
-void ControlPost(bool iniLab,bool subLab,bool SW_0,int variable_0,int variable_1,int variable_2,int variable_3)
+void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med)
 {
-  if (subLab and iniLab)
-  {
-      Serial.println("Sub - Laboratorio: Lentes convergentes"); 
-      int vueltas = variable_0 * 512;
-      prueva_lab(vueltas, SW_0);
-   
-  }
-  else if (!subLab and iniLab)
-  {
-      Serial.println("Sub - Laboratorio: Lentes Divergentes");  
-  }
+  Serial.println("Convergentes");
+  SW_0 = !diafragma;
+  variable_0 = distancia_fl + 1;
+  variable_1 = distancia_lp + 2;
+  variable_2 = cant_med + 3;
 }
-
+void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med)
+{
+  Serial.println("Divergentes");
+  variable_0 = distancia_fl1;
+  variable_1 = distancia_l1l2 + 1;
+  variable_2 = distancia_l2p + 2;
+  variable_3 = cant_med + 3;
+}
+/*
 void prueva_lab(int vueltas, bool Sentido)
 { // Función de prueba para los lab
   while((vueltas)>=0)
@@ -295,4 +305,4 @@ void stopMotor(){
  digitalWrite(IN2, 0);
  digitalWrite(IN3, 0);
  digitalWrite(IN4, 0); 
-}
+}*/
