@@ -89,8 +89,8 @@ void setup() {
 void loop() 
 {
   //////////// Strings de comunicación /////////////
-  char status[120] = {0};
-  char instrucciones[100] = {0};
+  char status[130] = {0};
+  char instrucciones[110] = {0};
   char operacion[20] = {0};
 
   // Wait for an incomming connection
