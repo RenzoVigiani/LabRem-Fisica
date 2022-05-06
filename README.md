@@ -2,15 +2,16 @@
 
 En este repositorio se realizarán los cambios a tener en cuenta para el avance de los lab remotos.
 
-#### Json a enviar (Indented style)
-	
-	{
-	"Estado": [ 0, true, false],
-	"Llaves": [false],
-	"Analogico": [ 1,	0,	125,	542	]
-	}
+#### Json a enviar
+ 
+ {
+ "Estado": [ 0, true, false],
+ "Llaves": [false],
+ "Analogico": [ 1, 0, 125, 542 ]
+ }
 
 **Sintaxis**
+
 #### Estado: [Laboratorio, SubLab, Inicio del experimento]
 
 |Laboratorio  | Sub Laboratorio  | Estado del Experimento |
@@ -24,7 +25,9 @@ En este repositorio se realizarán los cambios a tener en cuenta para el avance 
 - false: Finaliza el experimento
 
 #### Elementos por Laboratorio
+
 **Fisica Basica**
+
 - Convergente
   - Llaves:[Diafragma]
   - Analogico:[Distancia_FL, Distancia_LP, Cant_Med]
