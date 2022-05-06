@@ -1,0 +1,6 @@
+{
+    "port": "COM7",
+    "board": "arduino:avr:uno",
+    "programmer": "arduino:arduinoasisp",
+    "sketch": "Lab-Fisica\\Lab-Fisica.ino"
+}
