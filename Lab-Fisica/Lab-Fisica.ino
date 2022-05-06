@@ -2,6 +2,9 @@
 #include <UIPEthernet.h>
 #include <Servo.h>
 
+#define const_status 150
+#define const_instruc 130
+
 EthernetServer server = EthernetServer(22);
   //////// VAriables de json //////////////
   // Estado
@@ -16,16 +19,24 @@ EthernetServer server = EthernetServer(22);
   int variable_2=0;
   int variable_3=0;
   ////////////////////
-  int distancia_act=0;
+  int distancia_act_1=0;
+  int distancia_act_2=0;
+  int distancia_act_3=0;
+  int dist_mov = 0; // distancia que se debe mover el motor en realidad
+
 
 ////////////// Funciones  ////////////////////
 void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med);
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med);
 void Control_Motor(int motor, int distancia);
-void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, bool sentido);
+bool control_distancia(int distancia_act, int distancia);
+void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido);
 void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 void stopMotor(int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 
+//-------------------//
+void get_json(EthernetClient client);
+void post_json(char instrucciones[const_instruc], EthernetClient client);
 
 //////////// declaración de salidas ///////////////////
 //---------------- Motores --------------------------//
@@ -36,10 +47,10 @@ void stopMotor(int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 #define IN3_1  5
 #define IN4_1  6
 // Motor 2
-#define IN1_2  7
-#define IN2_2  8
-#define IN3_2  9
-#define IN4_2  10
+#define IN1_2  3
+#define IN2_2  4
+#define IN3_2  5
+#define IN4_2  6
 // Motor 3
 #define IN1_3  11
 #define IN2_3  12
@@ -89,10 +100,8 @@ void setup() {
 void loop() 
 {
   //////////// Strings de comunicación /////////////
-  char status[130] = {0};
-  char instrucciones[110] = {0};
-  char operacion[20] = {0};
-
+  char status[const_status] = {0};
+  char instrucciones[const_instruc] = {0};
   // Wait for an incomming connection
   EthernetClient client = server.available(); 
   // Do we have a client?
@@ -105,98 +114,104 @@ void loop()
     client.readBytesUntil('\r', status, sizeof(status));
     Serial.println("status:");
     Serial.println(status);
-  // Comparo la cadena recibida con las opcciones
-    strncpy(operacion,status,15);
-//    Serial.println("operacion: ");
-//    Serial.println(operacion);
 //obtengo las instrucciones del formato json
     strncpy(instrucciones,&status[15],(sizeof(status)-15));
-//    Serial.println("instrucciones:");
-//    Serial.println(instrucciones);   
+
+    //------ GET ----- //
     if (strstr(status, "GET / HTTP/1.1") != NULL) 
-    {     
-      StaticJsonDocument<256> doc;     
-      JsonArray Estado = doc.createNestedArray("Estado");
-      Estado.add(num_Lab);
-      Estado.add(subLab);
-      Estado.add(iniLab);
-
-      JsonArray Llaves = doc.createNestedArray("Llaves");
-      Llaves.add(SW_0);
-
-      JsonArray Analogico = doc.createNestedArray("Analogico");
-      Analogico.add(variable_0);
-      Analogico.add(variable_1);
-      Analogico.add(variable_2);
-      Analogico.add(variable_3);
-
-      Serial.print(F("Sending: "));
-      serializeJson(doc, Serial);
-      Serial.println();
-// Write response headers
-      client.println(F("HTTP/1.0 200 OK"));
-      client.println(F("Content-Type: application/json"));
-// client.println(F("Connection: close"));
-      client.print(F("Content-Length: "));
-      client.println(measureJsonPretty(doc));
-      client.println(); 
-// Write JSON document
-      serializeJsonPretty(doc, client);
-// Disconnect
-// client.stop();
-      }
-///////////////////////////// POST ///////////////////////////////////
+    {
+      get_json(client);
+    }
+  //------- POST -----//      
     if (strstr(status, "POST / HTTP/1.1") !=NULL) 
     {
-      Serial.println("Solicitud de escritura recibida");
-      client.println(F("HTTP/1.1 200 OK"));
-      client.println();
-      StaticJsonDocument<256> doc;
-      // Deserializo
-      DeserializationError error = deserializeJson(doc, instrucciones);
-      
-      if (error) 
-      {
-        Serial.print(F("deserializeJson() failed: "));
-        Serial.println(error.f_str());
-        return;
-      }
-      
-      JsonArray Estado = doc["Estado"];
-      num_Lab = Estado[0]; // 0 [Sist Dig], 1 [Sist Control], 2[Telecomunicaciones], 3[Fisica]
-      subLab = Estado[1]; // true[SubLab 1], false [SubLab 2]
-      iniLab = Estado[2]; // true[Inicia Experimento], false[Finaliza Experimento]
-
-      JsonArray Llaves = doc["Llaves"];
-      SW_0 = Llaves[0]; // Para habilitar Diafragma
-
-      JsonArray Analogico = doc["Analogico"];
-      variable_0 = Analogico[0]; // 
-      variable_1 = Analogico[1]; // 
-      variable_2 = Analogico[2]; // 
-      variable_3 = Analogico[3]; // 
-
-      if(num_Lab==2)
-      {
-        if (subLab and iniLab)
-        {
-          Serial.println("Sub - Laboratorio: Lentes convergentes"); 
-          Convergentes(SW_0, variable_0, variable_1, variable_2);
-        }
-        else if (!subLab and iniLab)
-        {
-          Serial.println("Sub - Laboratorio: Lentes Divergentes");  
-          Divergentes(variable_0, variable_1, variable_2, variable_3);
-        }
-      }
-      else
-      {
-        Serial.println("Laboratorio incorrecto");    
-      }
-      // Disconnect
-//      client.stop();
+      post_json(instrucciones, client);
     }
   }
+}
+
+void get_json(EthernetClient client)
+{
+  StaticJsonDocument<256> doc;     
+  JsonArray Estado = doc.createNestedArray("Estado");
+  Estado.add(num_Lab);
+  Estado.add(subLab);
+  Estado.add(iniLab);
+
+  JsonArray Llaves = doc.createNestedArray("Llaves");
+  Llaves.add(SW_0);
+
+  JsonArray Analogico = doc.createNestedArray("Analogico");
+  Analogico.add(variable_0);
+  Analogico.add(variable_1);
+  Analogico.add(variable_2);
+  Analogico.add(variable_3);
+
+  Serial.print(F("Sending: "));
+  serializeJson(doc, Serial);
+  Serial.println();
+// Write response headers
+  client.println(F("HTTP/1.0 200 OK"));
+  client.println(F("Content-Type: application/json"));
+// client.println(F("Connection: close"));
+  client.print(F("Content-Length: "));
+  client.println(measureJsonPretty(doc));
+  client.println(); 
+// Write JSON document
+  serializeJsonPretty(doc, client);
+// Disconnect
+// client.stop();
+}
+
+void post_json(char instrucciones[const_instruc], EthernetClient client)
+{
+  Serial.println("Solicitud de escritura recibida");
+  client.println(F("HTTP/1.1 200 OK"));
+  client.println();
+  StaticJsonDocument<256> doc;
+  // Deserializo
+  DeserializationError error = deserializeJson(doc, instrucciones);
+  
+  if (error) 
+  {
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.f_str());
+    return;
+  }
+  
+  JsonArray Estado = doc["Estado"];
+  num_Lab = Estado[0]; // 0 [Sist Dig], 1 [Sist Control], 2[Telecomunicaciones], 3[Fisica]
+  subLab = Estado[1]; // true[SubLab 1], false [SubLab 2]
+  iniLab = Estado[2]; // true[Inicia Experimento], false[Finaliza Experimento]
+
+  JsonArray Llaves = doc["Llaves"];
+  SW_0 = Llaves[0]; // Para habilitar Diafragma
+
+  JsonArray Analogico = doc["Analogico"];
+  variable_0 = Analogico[0]; // 
+  variable_1 = Analogico[1]; // 
+  variable_2 = Analogico[2]; // 
+  variable_3 = Analogico[3]; // 
+
+  if(num_Lab==3)
+  {
+    if (subLab and iniLab)
+    {
+      Serial.println("Sub - Laboratorio: Lentes convergentes"); 
+      Convergentes(SW_0, variable_0, variable_1, variable_2);
+    }
+    else if (!subLab and iniLab)
+    {
+      Serial.println("Sub - Laboratorio: Lentes Divergentes");  
+      Divergentes(variable_0, variable_1, variable_2, variable_3);
+    }
+  }
+  else
+  {
+    Serial.println("Laboratorio incorrecto");    
+  }
+  // Disconnect
+//      client.stop();
 }
 
 void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med)
@@ -213,10 +228,10 @@ void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_m
     delay(1000);
   }    
   Control_Motor(1, distancia_fl);
-  variable_0 = distancia_act;
+  variable_0 = distancia_act_1;
   delay(1000);  
-  Control_Motor(1, distancia_lp);    
-  variable_1 = distancia_act;
+  Control_Motor(2, distancia_lp);    
+  variable_1 = distancia_act_2;
   variable_2 = cant_med + 3;
 }
 
@@ -231,40 +246,20 @@ void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int c
 
 void Control_Motor(int motor, int distancia)
 {
-  bool sentido = true; // true = derecha, false = izquierda
-  int dist_mov = 0; // distancia que se debe mover el motor en realidad
-  if (distancia > 0 and distancia < 100) // maximo movimiento es 100 mm
-  {
-    if (distancia_act > distancia) // tiene que retroceder
-    {
-      sentido = false;
-      dist_mov = (distancia_act - distancia); 
-
-    } 
-    if (distancia_act < distancia) // tiene que avanzar
-    {
-      sentido = true; 
-      dist_mov = (distancia - distancia_act);
-    }
-    Serial.print("Distancia requerida: ");
-    Serial.println(distancia);
-//    distancia_act = distancia;  
-
-  }
-  else
-  {
-    Serial.println("Distancia no permitida");
-  }
+  bool sentido=true;
   switch (motor)  // se controla motor a mover
   {
     case 1:
-      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, sentido);
+      sentido = control_distancia(distancia_act_1, distancia);
+      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_1, sentido);
       break;
     case 2:
-      Mover_Motor(IN1_2, IN2_2, IN3_2, IN4_2, dist_mov, sentido);
+      sentido = control_distancia(distancia_act_2, distancia);
+      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_2, sentido);
       break;
     case 3:
-      Mover_Motor(IN1_3, IN2_3, IN3_3, IN4_3, dist_mov, sentido);
+      sentido = control_distancia(distancia_act_3, distancia);
+      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_3, sentido);
       break;
     default:
       Serial.println("El motor no existe");
@@ -272,7 +267,33 @@ void Control_Motor(int motor, int distancia)
   }
 }
 
-void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, bool sentido)
+bool control_distancia(int distancia_act, int distancia)
+{
+  bool sentido = true; // true = derecha, false = izquierda  
+  
+  if (distancia > 0 and distancia < 100) // maximo movimiento es 100 mm
+  {
+    if (distancia_act > distancia) // tiene que retroceder
+    {
+      sentido = false;
+      dist_mov = (distancia_act - distancia); 
+  } 
+    if (distancia_act < distancia) // tiene que avanzar
+    {
+      sentido = true; 
+      dist_mov = (distancia - distancia_act);
+    }
+    Serial.print("Distancia requerida: ");
+    Serial.println(distancia);
+  }
+  else
+  {
+    Serial.println("Distancia no permitida");
+  }
+  return sentido;
+}
+
+void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido)
 {
   const int factor_vueltas = 50; //512
   int vueltas= dist_mov * factor_vueltas;
@@ -288,9 +309,9 @@ void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dis
       }            
       if( (vueltas % factor_vueltas) == 0)
       {
-        distancia_act = distancia_act + 1; 
+        aux_dist = aux_dist + 1; 
         Serial.print("Distancia actual: ");
-        Serial.println(distancia_act);
+        Serial.println(aux_dist);
       } 
     }
     if(sentido and (vueltas <= 0))      
@@ -306,9 +327,9 @@ void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dis
       }
       if( (vueltas % factor_vueltas) == 0)
       {
-        distancia_act = distancia_act - 1; 
+        aux_dist = aux_dist - 1; 
         Serial.print("Distancia actual: ");
-        Serial.println(distancia_act);
+        Serial.println(aux_dist);
       }            
     }    
     if(!sentido and (vueltas <= 0))      
