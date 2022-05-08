@@ -1,38 +1,33 @@
-## Protocolo
+# Protocolo para los laboratorios de "Física Básica"
 
-En este repositorio se realizarán los cambios a tener en cuenta para el avance de los lab remotos.
-
-#### Json a enviar
+## Json a enviar
  
- {
- "Estado": [ 0, true, false],
- "Llaves": [false],
- "Analogico": [ 1, 0, 125, 542 ]
- }
+    { "Estado": [ 0, true, false],"Llaves": [false], "Analogico": [ 1, 0, 125, 542 ]}
 
-**Sintaxis**
+## Sintaxis
 
-#### Estado: [Laboratorio, SubLab, Inicio del experimento]
+**Estado**
+Es un array conformado por 3 elementos en el siguiente orden: [Laboratorio, SubLab, Inicio del experimento]
 
-|Laboratorio  | Sub Laboratorio  | Estado del Experimento |
-| ------------ | ------------ | ------------ |
-| 3  | true  | Fisica Basica: Lente Convergente  |
-| 3  | false  | Fisica Basica: Lente Divergente  |
+|Laboratorio  | Sub Laboratorio  | Inicio del experimento | Laboratorio Seleccionado | Estado del experimento|
+|-|-----|-----|-----------------|--------|
+|3|true |true |Lente Convergente|Inicia  |
+|3|true |false|Lente Convergente|Finaliza|
+|3|false|true |Lente Divergente |Inicia  |
+|3|false|false|Lente Divergente |Finaliza|
 
-**Inicio del experimento:**
+**Elementos por Laboratorio**
 
-- true: Inicia el experimento
-- false: Finaliza el experimento
+***Convergente***
 
-#### Elementos por Laboratorio
+- Llaves:[Diafragma]
+- Analogico:[Distancia_FL,Distancia_LP,Cant_Med]
 
-**Fisica Basica**
+***Divergente***
 
-- Convergente
-  - Llaves:[Diafragma]
-  - Analogico:[Distancia_FL, Distancia_LP, Cant_Med]
-- Divergente
-  - Analogico:[Distancia_FL1, Distancia_L1L2, Distancia_L2P, Cant_Med]
+- Analogico:[Distancia_FL1,Distancia_L1L2,Distancia_L2P,Cant_Med]
+
+## Diagramas
 
 **Diagrama general**
 
