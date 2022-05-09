@@ -19,9 +19,9 @@ EthernetServer server = EthernetServer(22);
   int variable_2=0;
   int variable_3=0;
   ////////////////////
-  int distancia_act_1=0;
-  int distancia_act_2=0;
-  int distancia_act_3=0;
+  int distancia_act_1;
+  int distancia_act_2;
+  int distancia_act_3;
   int dist_mov = 0; // distancia que se debe mover el motor en realidad
 
 
@@ -30,7 +30,7 @@ void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_m
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med);
 void Control_Motor(int motor, int distancia);
 bool control_distancia(int distancia_act, int distancia);
-void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido);
+int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido);
 void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 void stopMotor(int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 
@@ -205,6 +205,10 @@ void post_json(char instrucciones[const_instruc], EthernetClient client)
       Serial.println("Sub - Laboratorio: Lentes Divergentes");  
       Divergentes(variable_0, variable_1, variable_2, variable_3);
     }
+    else
+    {
+      Serial.println("Laboratorio Parado");    
+    }     
   }
   else
   {
@@ -228,11 +232,11 @@ void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_m
     delay(1000);
   }    
   Control_Motor(1, distancia_fl);
-  variable_0 = distancia_act_1;
   delay(1000);  
   Control_Motor(2, distancia_lp);    
-  variable_1 = distancia_act_2;
-  variable_2 = cant_med + 3;
+//  variable_0 = distancia_act_1;
+//  variable_1 = distancia_act_2;
+//  variable_2 = cant_med + 3;
 }
 
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med)
@@ -251,15 +255,21 @@ void Control_Motor(int motor, int distancia)
   {
     case 1:
       sentido = control_distancia(distancia_act_1, distancia);
-      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_1, sentido);
+      Serial.print("Distancia actual: ");
+      Serial.println(distancia_act_1);
+      distancia_act_1 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_1, sentido);
       break;
     case 2:
       sentido = control_distancia(distancia_act_2, distancia);
-      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_2, sentido);
+      Serial.print("Distancia actual: ");
+      Serial.println(distancia_act_2);
+      distancia_act_2 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_2, sentido);
       break;
     case 3:
       sentido = control_distancia(distancia_act_3, distancia);
-      Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_3, sentido);
+      Serial.print("Distancia actual: ");
+      Serial.println(distancia_act_3);
+      distancia_act_3 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_3, sentido);
       break;
     default:
       Serial.println("El motor no existe");
@@ -293,9 +303,9 @@ bool control_distancia(int distancia_act, int distancia)
   return sentido;
 }
 
-void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido)
+int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido)
 {
-  const int factor_vueltas = 50; //512
+  const int factor_vueltas = 512; //512
   int vueltas= dist_mov * factor_vueltas;
 
   while((vueltas)>=0)
@@ -305,7 +315,7 @@ void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dis
       for(int i=0;i<8;i++)
       {
         valorSalidas(i,bobina_1,bobina_2,bobina_3,bobina_4);
-        delay(5);
+        delay(2);
       }            
       if( (vueltas % factor_vueltas) == 0)
       {
@@ -323,7 +333,7 @@ void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dis
       for(int i=7;i>=0;i--)
       {
         valorSalidas(i,bobina_1,bobina_2,bobina_3,bobina_4);
-        delay(5);
+        delay(2);
       }
       if( (vueltas % factor_vueltas) == 0)
       {
@@ -338,6 +348,7 @@ void Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dis
     }        
     vueltas--;    
     }
+    return aux_dist;
   }
 
 void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4)
