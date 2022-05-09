@@ -242,10 +242,13 @@ void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_m
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med)
 {
   Serial.println("Divergentes");
-  variable_0 = distancia_fl1;
-  variable_1 = distancia_l1l2 + 1;
-  variable_2 = distancia_l2p + 2;
-  variable_3 = cant_med + 3;
+  servo_lente.write(90); // Desplazamos a la posición 90º
+  delay(1000);
+  Control_Motor(1, distancia_fl);
+  delay(1000);  
+  Control_Motor(2, distancia_lp);    
+  delay(1000);  
+  
 }
 
 void Control_Motor(int motor, int distancia)
