@@ -255,18 +255,24 @@ void Control_Motor(int motor, int distancia)
   {
     case 1:
       sentido = control_distancia(distancia_act_1, distancia);
+      Serial.print("Distancia requerida Motor 1: ");
+      Serial.println(distancia);
       Serial.print("Distancia actual: ");
       Serial.println(distancia_act_1);
       distancia_act_1 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_1, sentido);
       break;
     case 2:
       sentido = control_distancia(distancia_act_2, distancia);
+      Serial.print("Distancia requerida Motor 2: ");
+      Serial.println(distancia);
       Serial.print("Distancia actual: ");
       Serial.println(distancia_act_2);
       distancia_act_2 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_2, sentido);
       break;
     case 3:
       sentido = control_distancia(distancia_act_3, distancia);
+      Serial.print("Distancia requerida Motor 3: ");
+      Serial.println(distancia);
       Serial.print("Distancia actual: ");
       Serial.println(distancia_act_3);
       distancia_act_3 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_3, sentido);
@@ -293,8 +299,6 @@ bool control_distancia(int distancia_act, int distancia)
       sentido = true; 
       dist_mov = (distancia - distancia_act);
     }
-    Serial.print("Distancia requerida: ");
-    Serial.println(distancia);
   }
   else
   {
@@ -305,7 +309,7 @@ bool control_distancia(int distancia_act, int distancia)
 
 int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido)
 {
-  const int factor_vueltas = 512; //512
+  const int factor_vueltas = 128; //512 - una vuelta entera.
   int vueltas= dist_mov * factor_vueltas;
 
   while((vueltas)>=0)
