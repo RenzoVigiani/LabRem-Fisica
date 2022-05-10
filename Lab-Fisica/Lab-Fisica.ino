@@ -22,15 +22,14 @@ EthernetServer server = EthernetServer(22);
   int distancia_act_1;
   int distancia_act_2;
   int distancia_act_3;
-  int dist_mov = 0; // distancia que se debe mover el motor en realidad
-
+  int dist_mov; // distancia que se debe mover el motor en realidad
 
 ////////////// Funciones  ////////////////////
-void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med);
-void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med);
+void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med,EthernetClient client);
+void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med,EthernetClient client);
 void Control_Motor(int motor, int distancia);
 bool control_distancia(int distancia_act, int distancia);
-int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido);
+int  Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist_mov, int aux_dist, bool sentido);
 void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 void stopMotor(int bobina_1, int bobina_2, int bobina_3, int bobina_4);
 
@@ -59,7 +58,7 @@ void post_json(char instrucciones[const_instruc], EthernetClient client);
 
 // Declaramos la variable para controlar el servo
 Servo servo_diafragma;
-Servo servo_lente;
+//Servo servo_lente;
 
 void setup() {
   // Initialize Arduino server parameters
@@ -95,6 +94,7 @@ void setup() {
 */
   // Iniciamos el servo para que empiece a trabajar con el pin 9
   servo_diafragma.attach(9);
+//  servo_lente.attach(9);
 }
 
 void loop() 
@@ -198,12 +198,12 @@ void post_json(char instrucciones[const_instruc], EthernetClient client)
     if (subLab and iniLab)
     {
       Serial.println("Sub - Laboratorio: Lentes convergentes"); 
-      Convergentes(SW_0, variable_0, variable_1, variable_2);
+      Convergentes(SW_0, variable_0, variable_1, variable_2, client);
     }
     else if (!subLab and iniLab)
     {
       Serial.println("Sub - Laboratorio: Lentes Divergentes");  
-      Divergentes(variable_0, variable_1, variable_2, variable_3);
+      Divergentes(variable_0, variable_1, variable_2, variable_3, client);
     }
     else
     {
@@ -218,7 +218,7 @@ void post_json(char instrucciones[const_instruc], EthernetClient client)
 //      client.stop();
 }
 
-void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med)
+void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_med, EthernetClient client)
 {
   Serial.println("Convergentes");
   if(diafragma)
@@ -234,21 +234,11 @@ void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_m
   Control_Motor(1, distancia_fl);
   delay(1000);  
   Control_Motor(2, distancia_lp);    
-//  variable_0 = distancia_act_1;
-//  variable_1 = distancia_act_2;
-//  variable_2 = cant_med + 3;
 }
 
-void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med)
+void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med,EthernetClient client)
 {
   Serial.println("Divergentes");
-  servo_lente.write(90); // Desplazamos a la posición 90º
-  delay(1000);
-  Control_Motor(1, distancia_fl);
-  delay(1000);  
-  Control_Motor(2, distancia_lp);    
-  delay(1000);  
-  
 }
 
 void Control_Motor(int motor, int distancia)
