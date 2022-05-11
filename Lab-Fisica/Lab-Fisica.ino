@@ -41,30 +41,35 @@ void post_json(char instrucciones[const_instruc], EthernetClient client);
 //---------------- Motores --------------------------//
 
 // Motor 1
-#define IN1_1  3
-#define IN2_1  4
-#define IN3_1  5
-#define IN4_1  6
+#define IN1_1  39
+#define IN2_1  37
+#define IN3_1  35
+#define IN4_1  33
 // Motor 2
-#define IN1_2  3
-#define IN2_2  4
-#define IN3_2  5
-#define IN4_2  6
+#define IN1_2  38
+#define IN2_2  36
+#define IN3_2  34
+#define IN4_2  32
 // Motor 3
-#define IN1_3  11
-#define IN2_3  12
-#define IN3_3  13
-#define IN4_3  14
-
+#define IN1_3  40
+#define IN2_3  41
+#define IN3_3  42
+#define IN4_3  43
+// Foco
+#define Foco_pin 3
+// Servo Diafragma
+#define Diafragma_pin 2
+// Servo Lente
+#define Lente_pin 4
 // Declaramos la variable para controlar el servo
 Servo servo_diafragma;
-//Servo servo_lente;
+Servo servo_lente;
 
 void setup() {
   // Initialize Arduino server parameters
   uint8_t mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
   IPAddress myIP(172,20,5,140);
-  // Initialize serial port
+  // Initialize serial 0 port
   Serial.begin(9600);
   while (!Serial) continue;
   // Initialize Ethernet libary
@@ -74,27 +79,26 @@ void setup() {
   Serial.println(F("Server is ready."));
   Serial.print(F("Please connect to http://"));
   Serial.println(Ethernet.localIP());
- 
   // declaro salidas para motor 1
   pinMode(IN1_1, OUTPUT);
   pinMode(IN2_1, OUTPUT);
   pinMode(IN3_1, OUTPUT);
   pinMode(IN4_1, OUTPUT);
-/*    // declaro salidas para motor 2
+  // declaro salidas para motor 2
   pinMode(IN1_2, OUTPUT);
-  pinMode(bobina_2_2, OUTPUT);
-  pinMode(Ibobina_32, OUTPUT);
-  pinMode(INbobina_4, OUTPUT);
+  pinMode(IN2_2, OUTPUT);
+  pinMode(IN3_2, OUTPUT);
+  pinMode(IN4_2, OUTPUT);
     // declaro salidas para motor 3
   pinMode(IN1_3, OUTPUT);
-  pinMode(bobina_2_3, OUTPUT);
-  pinMode(Ibobina_33, OUTPUT);
-  pinMode(INbobina_4, OUTPUT);
-  }
-*/
-  // Iniciamos el servo para que empiece a trabajar con el pin 9
-  servo_diafragma.attach(9);
-//  servo_lente.attach(9);
+  pinMode(IN2_3, OUTPUT);
+  pinMode(IN3_3, OUTPUT);
+  pinMode(IN4_3, OUTPUT);
+  // Declaro salida de Foto (LED)
+  pinMode(Foco_pin, OUTPUT);  
+  // Declaro salidas Servos
+  servo_diafragma.attach(Diafragma_pin);
+  servo_lente.attach(Lente_pin);
 }
 
 void loop() 
@@ -160,7 +164,7 @@ void get_json(EthernetClient client)
 // Write JSON document
   serializeJsonPretty(doc, client);
 // Disconnect
-// client.stop();
+ client.stop();
 }
 
 void post_json(char instrucciones[const_instruc], EthernetClient client)
@@ -239,6 +243,9 @@ void Convergentes(bool diafragma, int distancia_fl, int distancia_lp, int cant_m
 void Divergentes(int distancia_fl1, int distancia_l1l2, int distancia_l2p, int cant_med,EthernetClient client)
 {
   Serial.println("Divergentes");
+  digitalWrite(Foco_pin, HIGH);
+  delay(2000);
+  digitalWrite(Foco_pin, LOW);
 }
 
 void Control_Motor(int motor, int distancia)
@@ -260,7 +267,7 @@ void Control_Motor(int motor, int distancia)
       Serial.println(distancia);
       Serial.print("Distancia actual: ");
       Serial.println(distancia_act_2);
-      distancia_act_2 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_2, sentido);
+      distancia_act_2 = Mover_Motor(IN1_2, IN2_2, IN3_2, IN4_2, dist_mov, distancia_act_2, sentido);
       break;
     case 3:
       sentido = control_distancia(distancia_act_3, distancia);
@@ -268,7 +275,7 @@ void Control_Motor(int motor, int distancia)
       Serial.println(distancia);
       Serial.print("Distancia actual: ");
       Serial.println(distancia_act_3);
-      distancia_act_3 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_3, sentido);
+      distancia_act_3 = Mover_Motor(IN1_3, IN2_3, IN3_3, IN4_3, dist_mov, distancia_act_3, sentido);
       break;
     default:
       Serial.println("El motor no existe");
