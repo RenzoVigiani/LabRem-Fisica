@@ -265,16 +265,11 @@ UsedLibraryUrn="urn:adsk.eagle:library:196"
 UsedLibraryUrn="urn:adsk.eagle:library:197"
 UsedLibraryUrn="urn:adsk.eagle:library:198"
 UsedLibraryUrn="urn:adsk.eagle:library:199"
-UsedLibrary="C:/Users/vigia/OneDrive/Documentos/EAGLE/libraries/MIKRO_MEGA2560.lbr"
-UsedLibrary="C:/Users/vigia/OneDrive/Documentos/EAGLE/libraries/adafruit.lbr"
-UsedLibrary="C:/Users/vigia/OneDrive/Documentos/EAGLE/libraries/ethernet-mikroavr.lbr"
-UsedLibrary="C:/Users/vigia/OneDrive/Documentos/EAGLE/libraries/microchip-enc28j60.lbr"
-UsedLibrary="C:/Users/vigia/OneDrive/Documentos/EAGLE/libraries/switches_rocker.lbr"
 
 [Win_1]
 Type="Control Panel"
 Number=0
 
 [Desktop]
-Screen="4086 1034"
+Screen="1360 768"
 Window="Win_1"
