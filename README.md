@@ -2,7 +2,7 @@
 
 ## Json a enviar
  
-    { "Estado": [ 0, true, false],"Llaves": [false], "Analogico": [ 1, 0, 125, 542 ]}
+    { "Estado": [0,true,false],"Analogico": [1,0,125,542,2]}
 
 ## Sintaxis
 
@@ -20,16 +20,19 @@ Es un array conformado por 3 elementos en el siguiente orden: [Laboratorio, SubL
 
 ***Convergente***
 
-- Llaves:[Diafragma]
-El diafragma se puede habilitar o deshabilitar.
-- Analogico:[Distancia_FL,Distancia_LP,Cant_Med]
+- Analogico:[Tipo_Diafragma,Cant_Med,Distancia_FL,Distancia_LP]
 Distancia_FL = Foco Lente 
 Distancia_LP = Lente Pantalla
 Cant_Med = Cantidad de mediciones a realizar. Cada vez que incrementa el valor se envía una muestra de las condiciones actuales y vuelve a condiciones iniciales el sistema.
+- Tipo_Diafragma = Indica el tipo de diafragma
+  - 0 : Sin diafragma
+  - 1 : Chico
+  - 2 : Mediano
+  - 3 : Grande
 
 ***Divergente***
 
-- Analogico:[Distancia_FL1,Distancia_L1L2,Distancia_L2P,Cant_Med]
+- Analogico:[Tipo_Diafragma,Cant_Med,Distancia_FL1,Distancia_L1L2,Distancia_L2P]
 
 ## Valores permitidos
 

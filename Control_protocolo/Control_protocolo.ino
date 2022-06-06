@@ -61,7 +61,7 @@ void setup () {
   digitalWrite(ledPin, LOW);
 }
 
-// Se define respuesta:
+//----- Respuestas de Pedidos ETHERNET -----//
 static word postpage() {
   BufferFiller bfill = ether.tcpOffset();
   bfill.emit_p(PSTR("HTTP/1.1 200 OK\r\n"));
