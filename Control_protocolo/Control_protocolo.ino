@@ -11,10 +11,11 @@ luego enviar GET hasta que arduino responda(si no se conecta es porque está tra
 
 #define const_status 700
 #define const_instruc 700
-
+//------------------------------
 static byte mymac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 static byte myip[] = {172,20,5,140};
 byte Ethernet::buffer[const_status];
+
 //--------- Declaración de variables ----------//
 //////// VAriables de json ////////////// (GENERICO)
 // Estado
@@ -55,7 +56,6 @@ void setup () {
   if (!ether.staticSetup(myip))
     Serial.println("No se pudo establecer la dirección IP");
   Serial.println();
-
   //--------Modo de pines---------//  
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
@@ -67,6 +67,7 @@ static word postpage() {
   bfill.emit_p(PSTR("HTTP/1.1 200 OK\r\n"));
   return bfill.position();
 }
+
 static word getpage() {
   BufferFiller bfill = ether.tcpOffset();
   bfill.emit_p(PSTR("HTTP/1.1 200 OK\r\n"
@@ -79,6 +80,7 @@ static word getpage() {
     Analogico_0,Analogico_1,Analogico_2,Analogico_3,
     Serial_rx);
   return bfill.position();
+
 }
   
 void loop() {
@@ -91,9 +93,11 @@ void loop() {
   if(pos) { 
     if(strstr((char *)Ethernet::buffer + pos, "GET / HTTP/1.1") != 0) {
       Serial.println("Comando GET recibido");
+      ether.persistTcpConnection(true);
       ether.httpServerReply(getpage()); // se envia OK y datos necesarios
     }
-    if(strstr((char *)Ethernet::buffer + pos, "POST / HTTP/1.1") != 0) {
+    if(strstr((char *)Ethernet::buffer + pos, "POST / HTTP/1.1") != 0) 
+    {
       Serial.println("Comando POST recibido");
       //obtengo las instrucciones del formato json
       strcpy(status,(char *)Ethernet::buffer + pos);
@@ -103,15 +107,18 @@ void loop() {
       Serial.print("Instrucciones:");
       Serial.println(instrucciones);*/
       bandera=1;
+//      ether.httpServerReply(12);
       ether.httpServerReply(postpage()); // se envia OK
+      ether.persistTcpConnection(true);
     }        
-    if(bandera==1)
-    {
-      post_json(instrucciones);
-      bandera=0;
-    }
-  }   
+  }    
+  if(bandera==1)
+  {
+    post_json(instrucciones);
+    bandera=0;
+  } 
 }
+
 void post_json(char instrucciones[const_instruc])
 {
   StaticJsonDocument<256> doc; // Creo un doc de json
@@ -157,12 +164,18 @@ void post_json(char instrucciones[const_instruc])
     else if (!subLab and iniLab)
     {
       Serial.println("Sub - Laboratorio: 2");
-      delay(10000);
-      Serial.println("Pasaron 10 segundos"); 
+      if(!ether.packetLoop(ether.packetReceive()))
+      {
+        for (int i = 0; i < 10; i++)
+        {
+          delay(1000);
+          Serial.print("Pasaron ");
+          Serial.print(i+1);
+          Serial.println(" segundos");
+        }
+      }else  ether.httpServerReply(getpage());              
     }
     else Serial.println("Laboratorio Parado"); 
   }
   else Serial.println("Laboratorio incorrecto");    
-  // Disconnect
-//      client.stop();
 }
