@@ -16,7 +16,6 @@
 #include <UIPEthernet.h>
  
 #include <WebSocketsClient.h>
-#include <WebSocketsServer.h>
  
 #define DEBUG_SERIAL Serial
  
@@ -25,7 +24,7 @@
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
  
 // Set the static IP address to use if the DHCP fails to assign
-IPAddress ip(172, 20, 5, 140);
+IPAddress ip(192, 168, 1, 108);
  
 WebSocketsClient webSocket;
  
@@ -82,7 +81,7 @@ void setup()
     DEBUG_SERIAL.print("IP address ");
     DEBUG_SERIAL.println(Ethernet.localIP());
  
-    webSocket.begin("echo.websocket.org", 80, "/");
+    webSocket.begin("wss://192.168.1.106", 81, "/");
     webSocket.onEvent(webSocketEvent);
  
 }

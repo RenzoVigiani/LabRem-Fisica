@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://www.mischianti.org/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="https://www.mischianti.org/favicon.ico" type="image/x-icon"/>
+
+    <meta charset="UTF-8">
+    <title>Mischainti WebSocket Client</title>
+</head>
+<body>
+<div style="background-color: aliceblue; padding: 15px;">
+    <style>
+        #wsClientOutput {
+            border: solid 1px #999999;
+            border-top-color: #CCCCCC;
+            border-left-color: #CCCCCC;
+            padding: 5px;
+            width: 100%;
+            max-width: 400px;
+            height: 172px;
+            overflow-y: scroll;
+
+            font-family: "Open Sans";
+            font-size: 13px;
+
+            background-color: white;
+        }
+    </style>
+    <script language="javascript" type="text/javascript">
+
+        // var wsUri = "wss://echo.websocket.org/";
+        var wsClientOutput;
+
+        function init() {
+            wsClientOutput = document.getElementById("wsClientOutput");
+            testWebSocket();
+        }
+
+        function testWebSocket() {
+            websocket = new WebSocket(document.getElementById("uriWebSocketServer").value);
+            websocket.onopen = function (evt) {
+                onOpen(evt)
+            };
+            websocket.onclose = function (evt) {
+                onClose(evt)
+            };
+            websocket.onmessage = function (evt) {
+                onMessage(evt)
+            };
+            websocket.onerror = function (evt) {
+                onError(evt)
+            };
+        }
+
+        function onOpen(evt) {
+            writeToScreen("CONNECTED");
+            // doSend("Hi, I'm simple JS client!!");
+        }
+
+        function onClose(evt) {
+            writeToScreen("DISCONNECTED");
+        }
+
+        function onMessage(evt) {
+            writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
+            // websocket.close();
+        }
+
+        function onError(evt) {
+            writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+        }
+
+        function doSend(message) {
+            writeToScreen("SENT: " + message);
+            websocket.send(message);
+        }
+
+        function writeToScreen(message) {
+            var pre = document.createElement("p");
+            pre.style.wordWrap = "break-word";
+            pre.innerHTML = message;
+            wsClientOutput.appendChild(pre);
+
+            wsClientOutput.scrollTop = wsClientOutput.scrollHeight;
+        }
+
+        window.addEventListener("load", init, false);
+
+    </script>
+
+    <h3>WebSocket Test Client</h3>
+    <div><a href="https://www.mischianti.org">www.mischianti.org</a></div>
+    <br/><br/>
+
+    <input type="text" id="uriWebSocketServer" value="ws://192.168.1.133">
+    <input type="button" value="Reconnect!" onclick="websocket &amp;&amp; websocket.close();init();">
+    <br><br>
+    <div id="wsClientOutput"></div>
+    <br>
+    <input type="text" id="messageToSend" value="Simple js client message!!">
+    <input type="button" value="Send message!" onclick="doSend(document.getElementById('messageToSend').value)">
+    <br><br>
+    <input type="button" value="Close connection!" onclick="websocket.close()">
+    <br/><br/>
+    <div><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC BY-NC-SA 3.0</a></div>
+
+</div>
+</body>
+</html>
