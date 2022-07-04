@@ -201,27 +201,10 @@ void post_json(char instrucciones[const_instruc])
     Analogico_3 = Analogico[3];
     Analogico_4 = Analogico[4];
 
-    if (subLab and iniLab)
-    {
-      Serial.println("Sub - Laboratorio: Lentes convergentes"); 
-      Convergentes(Analogico_0, Analogico_1, Analogico_2,Analogico_3);
-    }
-    else if (!subLab and iniLab)
-    {
-      Serial.println("Sub - Laboratorio: Lentes Divergentes");  
-      Divergentes(Analogico_0, Analogico_1, Analogico_2, Analogico_3,Analogico_4);
-    }
-    else
-    {
-      Serial.println("Laboratorio Parado");    
-    }     
-  }
-  else
-  {
-    Serial.println("Laboratorio incorrecto");    
-  }
+    
   // Disconnect
 //      client.stop();
+}
 }
 
 void Convergentes(int diafragma, int cant_med, int distancia_fl, int distancia_lp)
@@ -334,7 +317,7 @@ int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist
 {
   const int factor_vueltas = 128; //512 - una vuelta entera.
   int vueltas= dist_mov * factor_vueltas;
-
+  
   while((vueltas)>=0)
   {
     if(sentido and (vueltas > 0))
@@ -378,8 +361,7 @@ int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist
     return aux_dist;
   }
 
-void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4)
-{ // Salidas Motor
+void valorSalidas(int selector,int bobina_1, int bobina_2, int bobina_3, int bobina_4){ // Salidas Motor
   switch (selector) 
   {
     case 0:

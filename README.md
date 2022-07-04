@@ -21,6 +21,7 @@ Es un array conformado por 3 elementos en el siguiente orden: [Laboratorio, SubL
 ***Convergente***
 
 - Analogico:[Tipo_Diafragma,Cant_Med,Distancia_FL,Distancia_LP]
+
 Distancia_FL = Foco Lente 
 Distancia_LP = Lente Pantalla
 Cant_Med = Cantidad de mediciones a realizar. Cada vez que incrementa el valor se envía una muestra de las condiciones actuales y vuelve a condiciones iniciales el sistema.
