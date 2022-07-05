@@ -4,7 +4,7 @@
 #include <Servo.h> // Para el manejo de los Servos.
 //----------------------------------------------//
 // Defino el servidor y el Puerto
-#define server_port 80
+#define server_port 22 // 80
 EthernetServer server = EthernetServer(server_port);
 //----------------------------------------------//
 // Defino variables para Json
@@ -13,6 +13,15 @@ EthernetServer server = EthernetServer(server_port);
 
 //char Mensaje_recibido[const_mje] = {0}; // Mensaje recibido por ethernet. (Comando + JSON) 
 //char valores_recibidos[const_valores] = {0}; // JSON recibido.
+//----------------------------------------------//
+//------- Defino mensajes de error predeterminado
+// una variable error int
+uint8_t Errores = 0;
+// 0 - Sin errores
+// 1 - Error de distancia.
+// 2 - Error de cantidad de medicion.
+// 3 - Error de tipo de diafragma.
+// 4 - Laboratorio incorrecto.
 
 //----------------------------------------------//
 //------- Defino variables globales
@@ -70,12 +79,14 @@ bool bandera_rep=0; // bandera para limitar la cantidad de repeticiones de mensa
 bool bandera_fin_m1=0; // bandera para determinar fin de mov de motor 1
 bool bandera_fin_m2=0; // bandera para determinar fin de mov de motor 2
 bool bandera_fin_m3=0; // bandera para determinar fin de mov de motor 3
+bool sentido=0;
 // Nombres de variables auxiliares
-int conta_bobinas_der=0; // sirve para cambiar las bobinas - ascendente
-int conta_bobinas_izq=8; // sirve para cambiar las bobinas - descendente
+int conta_bobinas=0; // sirve para cambiar las bobinas
 int conta_vueltas; 
 int v_time = 0;
 const int ledPin = 3;
+const int limite_inferior_riel=0; // Indica el minimo valor que puede tomar distancia
+const int limite_superior_riel=900; // indica el minimo valor que puede tomar distancia.
 //----------------------------------------------//
 // Funciones
 void get_json(EthernetClient client);
@@ -85,7 +96,7 @@ void post_json(char instrucciones[const_valores], EthernetClient client);
 // Realizo las configuraciones iniciales
 void setup() {
   uint8_t myMAC[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}; // defino mac del dispositivo.
-  IPAddress myIP(192,168,1,140); // 172.20.5.140 Defino IP Address del dispositivo. 
+  IPAddress myIP(192,168,1,108); // 172.20.5.140 Defino IP Address del dispositivo. 
   Serial.begin(115200); // Inicializo Puerto serial 0 
   while (!Serial) continue; 
   Ethernet.begin(myMAC,myIP);  // Inicializo libreria Ethernet
@@ -136,7 +147,6 @@ char valores_recibidos[const_valores] = {0}; // JSON recibido.  // Wait for an i
     while (client.available()) 
     { 
       if(bandera_rep==1)bandera_rep=0; //reinicio bandera de repetición cuando tengo un mje nuevo.
-
       Serial.println("New Command");
       client.readBytesUntil('\r', Mensaje_recibido, sizeof(Mensaje_recibido)); // Tomo el mensaje recibido.
       strncpy(valores_recibidos,&Mensaje_recibido[15],(sizeof(Mensaje_recibido)-15)); 
@@ -159,6 +169,9 @@ char valores_recibidos[const_valores] = {0}; // JSON recibido.  // Wait for an i
         Analogicos.add(distancia_act_2);
         Analogicos.add(distancia_act_3);
 
+        JsonArray Error = doc.createNestedArray("Error");  
+        Error.add(Errores);
+
         Serial.print(F("Sending: "));
         serializeJson(doc, Serial);
         Serial.println();
@@ -177,7 +190,7 @@ char valores_recibidos[const_valores] = {0}; // JSON recibido.  // Wait for an i
       }
       //------- POST -----//      
         if (strstr(Mensaje_recibido, "POST /HTTP/1.1") !=NULL) { // Compruebo si llega un POST y respondo, habilito banderas.
-        if (bandera_vueltas) bandera_fin_m1=0; bandera_fin_m2=0; bandera_fin_m3=0; bandera_vueltas=0;
+        if (bandera_vueltas) {bandera_fin_m1=0; bandera_fin_m2=0; bandera_fin_m3=0; bandera_vueltas=0;}
         Serial.println("Solicitud de escritura recibida");        
         client.println();
         client.println(F("HTTP/1.1 200 OK"));
@@ -210,7 +223,7 @@ char valores_recibidos[const_valores] = {0}; // JSON recibido.  // Wait for an i
     }
   }
   else{ // Si no está el cliente enviando algo, sigo haciendo lo que corresponde.
-  Control();
+      Control();
   }
 }
 
@@ -229,7 +242,7 @@ void Control(){
     }
   }
   else {
-    if(bandera_rep==0) Serial.println("Laboratorio incorrecto");  bandera_rep = 1;
+    if(bandera_rep==0) Serial.println("Laboratorio incorrecto");  bandera_rep = 1; Errores=4;
   }
   hacer();
   delay(500);
@@ -277,6 +290,9 @@ void Convergentes(int diafragma, int cant_med, int distancia_fl, int distancia_l
   // Controlo motores
   Control_Motor(1, distancia_fl);
   Control_Motor(2, distancia_lp);    
+  if(bandera_fin_m1){
+    if(bandera_fin_m2) bandera_vueltas=1;
+  }
 }
 
 void Divergentes(int diafragma, int cant_med, int distancia_fl1, int distancia_l1l2, int distancia_l2p)
@@ -305,11 +321,22 @@ void Divergentes(int diafragma, int cant_med, int distancia_fl1, int distancia_l
   }
   // Controlo motores
   Control_Motor(1, distancia_fl1);
+
   Control_Motor(2, distancia_l1l2);
   Control_Motor(3, distancia_l2p); 
-  if(bandera_fin_m1)if(bandera_fin_m2) if(bandera_fin_m3) bandera_vueltas=1;
+  if(bandera_fin_m1){
+    if(bandera_fin_m2){
+      if(bandera_fin_m3) bandera_vueltas=1;
+    }
+  }
 }
 
+/**
+ * @brief 
+ * Función utilizada para el sistema completo de manejo de motor en base a la distancia requerida.
+ * @param motor 
+ * @param distancia 
+ */
 void Control_Motor(int motor, int distancia)
 {
   bool sentido=true;
@@ -317,7 +344,7 @@ void Control_Motor(int motor, int distancia)
   {
     case 1:
       sentido = control_distancia(distancia_act_1, distancia);
-      if(dist_mov==0) bandera_fin_m1 = 1;
+      if(dist_mov==0) {bandera_fin_m1 = 1; Serial.println("bandera Fin M1");}
       Serial.println("Distancia requerida Motor 1: " + (String)distancia);
       Serial.println("Distancia actual Motor 1: " + (String)distancia_act_1);
       distancia_act_1 = Mover_Motor(IN1_1, IN2_1, IN3_1, IN4_1, dist_mov, distancia_act_1, sentido);
@@ -325,14 +352,14 @@ void Control_Motor(int motor, int distancia)
       break;
     case 2:
       sentido = control_distancia(distancia_act_2, distancia);
-      if(dist_mov==0) bandera_fin_m2 = 1;
+      if(dist_mov==0) {bandera_fin_m2 = 1;Serial.println("bandera Fin M2");}
       Serial.println("Distancia requerida Motor 2: " + (String)distancia);
       Serial.println("Distancia actual Motor 2: " + (String)distancia_act_2);
       distancia_act_2 = Mover_Motor(IN1_2, IN2_2, IN3_2, IN4_2, dist_mov, distancia_act_2, sentido);
       break;
     case 3:
       sentido = control_distancia(distancia_act_3, distancia);
-      if(dist_mov==0) bandera_fin_m3 = 1;
+      if(dist_mov==0) {bandera_fin_m3 = 1;Serial.println("bandera Fin M3");}
       Serial.println("Distancia requerida Motor 3: " + (String)distancia);
       Serial.println("Distancia actual Motor 3: " + (String)distancia_act_3);
       distancia_act_3 = Mover_Motor(IN1_3, IN2_3, IN3_3, IN4_3, dist_mov, distancia_act_3, sentido);
@@ -355,14 +382,15 @@ void Control_Motor(int motor, int distancia)
  */
 bool control_distancia(int distancia_act, int distancia)
 {
-  bool sentido = true; // true = derecha, false = izquierda
-  if (distancia > 0 and distancia < 900) // maximo movimiento es 100 mm
+//  bool sentido = true; // true = derecha, false = izquierda
+  if (distancia >= limite_inferior_riel and distancia <= limite_superior_riel) // maximo movimiento es 100 mm
   {
-    if (distancia_act > distancia) sentido = false; dist_mov = (distancia_act - distancia);     
-    if (distancia_act < distancia) sentido = true;  dist_mov = (distancia - distancia_act);
+    if (distancia_act > distancia){sentido = false;dist_mov = (distancia_act - distancia);}    
+    if (distancia_act < distancia){sentido = true;dist_mov = (distancia - distancia_act);}
     if (distancia_act == distancia) dist_mov = 0;    
+    Serial.println("Sentido = "+String(sentido));
   }
-  else Serial.println("Distancia no permitida");
+  else Serial.println("Distancia no permitida"); Errores=1; 
   return sentido;
 }
 
@@ -374,7 +402,7 @@ bool control_distancia(int distancia_act, int distancia)
  * @param bobina_3 
  * @param bobina_4 
  * @param dist_mov Distancia a moverse
- * @param aux_dist Distancia que devuelve.
+ * @param aux_dist Distancia que devuelve. se debe ingresar la distancia actual
  * @param sentido Sentido de giro del motor
  * @return int - Valor de la distancia actual despues de un movimiento.
  */
@@ -383,40 +411,25 @@ int Mover_Motor(int bobina_1, int bobina_2, int bobina_3, int bobina_4, int dist
   const int factor_vueltas = 128; //512 - una vuelta entera.
   int vueltas= dist_mov * factor_vueltas;
   
-  if(vueltas>=0){
-    if(sentido and (vueltas > 0)){
-      if(conta_bobinas_der<8){
-        valorSalidas(conta_bobinas_der,bobina_1,bobina_2,bobina_3,bobina_4);
-        delay(2);
-        conta_bobinas_der++;
+//  if(vueltas>=0){
+    if(conta_bobinas<8){
+      if((vueltas == 0)){
+        stopMotor(bobina_1,bobina_2,bobina_3,bobina_4);    
       }
-      if( (vueltas % factor_vueltas) == 0){
-        aux_dist = aux_dist + 1; 
-//        Serial.print("Distancia actual: ");
-//        Serial.println(aux_dist);
-      } 
-      if(conta_bobinas_der==8) conta_bobinas_der=0; vueltas--;      
+      if(vueltas>0){
+        if(sentido){// giro positivo
+          valorSalidas(conta_bobinas,bobina_1,bobina_2,bobina_3,bobina_4);
+          if( (vueltas % factor_vueltas) == 0) aux_dist++; // sumo cuenta distancia
+        }else{      //giro negativo
+          valorSalidas((8-conta_bobinas),bobina_1,bobina_2,bobina_3,bobina_4);
+          if( (vueltas % factor_vueltas) == 0) aux_dist--;// resto cuenta distancia
+        }
+        delay(2);
+        conta_bobinas++;
+      }
     }
-    if(!sentido and (vueltas > 0)){
-      if(conta_bobinas_izq>0){
-        valorSalidas(conta_bobinas_izq,bobina_1,bobina_2,bobina_3,bobina_4);
-        delay(2);
-        conta_bobinas_izq--;
-      }
-      if( (vueltas % factor_vueltas) == 0)
-      {
-        aux_dist = aux_dist - 1; 
-//        Serial.print("Distancia actual: ");
-//        Serial.println(aux_dist);
-      }            
-      if(conta_bobinas_der==0) conta_bobinas_der=8; vueltas--;      
-    }    
-    if((vueltas == 0)){
-      stopMotor(bobina_1,bobina_2,bobina_3,bobina_4);
-      bandera_vueltas = 1;
-      //      vueltas=0;
-    }    
-  }
+    if(conta_bobinas==8) {conta_bobinas=0; vueltas--; }     
+//  }
   return aux_dist;
 }
 

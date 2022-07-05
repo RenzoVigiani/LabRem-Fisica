@@ -1,8 +1,22 @@
 # Protocolo para los laboratorios de "Física Básica"
+El procedimiento de comunicación es el siguiente.
+Cada vez que se quiere modificar algun dato en el laboratorio. El Servidor debe enviar un
 
-## Json a enviar
+    POST /HTTP/1.1 + <JSON a enviar>
+
+#### Json a enviar (ejemplo)
  
     { "Estado": [0,true,false],"Analogico": [1,0,125,542,2]}
+
+Y para obtener avances de los datos o reporte de los datos debe enviar un:
+
+      GET /HTTP/1.1
+
+De esta forma el Arduino responde ante una petición.
+
+#### Json a recibir (ejemplo)
+ 
+    { "Estado": [0,true,false],"Analogico": [1,0,125,542,2], "Error": "Mensaje de error"}
 
 ## Sintaxis
 
@@ -48,6 +62,18 @@ Los valores permitidos en las distancias son:
 |L2P:Lente2 Pantalla|    0    |   900   |  [mm]  |
 
 Máxima cantidad de mediciones = 10 [veces]
+
+**Error**
+Es un string que puede contener un mensaje de error.
+Es una variable numerica.
+
+| Tipo de error                     |  Valor  |
+|-----------------------------------|---------|
+| Sin errores                       |    0    |
+| Error de distancia                |    1    |
+| Error de cantidad de mediciones   |    2    |
+| Error de tipo de diafragma        |    3    |
+| Error de laboratorio incorrecto   |    4    |
 
 ## Diagramas
 
