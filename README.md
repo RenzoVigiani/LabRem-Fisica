@@ -64,8 +64,7 @@ Los valores permitidos en las distancias son:
 Máxima cantidad de mediciones = 10 [veces]
 
 **Error**
-Es un string que puede contener un mensaje de error.
-Es una variable numerica.
+Es una variable numerica que representa un mensaje de error. 
 
 | Tipo de error                     |  Valor  |
 |-----------------------------------|---------|
@@ -76,6 +75,12 @@ Es una variable numerica.
 | Error de laboratorio incorrecto   |    4    |
 
 ## Diagramas
+
+**Arduino Mega 2560**
+
+Pin Out
+<img alt = "Arduino Mega Pro" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-SistemasDig/main/Imagenes/Arduino-Mega-Pinout.png">
+
 
 **Arduino Mega Pro**
 
