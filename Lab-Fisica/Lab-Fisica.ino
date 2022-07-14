@@ -124,8 +124,7 @@ void loop() {
   char valores_recibidos[const_valores] = {0}; // JSON recibido.  // Wait for an incomming connection
   EthernetClient client = server.available(); 
   if(client){ // Si tengo un cliente conectado
-    while (client.available()) 
-    { 
+    while (client.available()){ 
       if(bandera_rep==1)bandera_rep=0; //reinicio bandera de repetición cuando tengo un mje nuevo.
       Serial.println("New Command");
       client.readBytesUntil('\r', Mensaje_recibido, sizeof(Mensaje_recibido)); // Tomo el mensaje recibido.
@@ -177,8 +176,7 @@ void loop() {
         client.println();
         StaticJsonDocument<256> doc; // Creo un doc de json
         DeserializationError error = deserializeJson(doc, valores_recibidos); // Deserializo
-        if (error) // Analizo posibles errores.
-        {
+        if (error){ // Analizo posibles errores.
           Serial.print(F("deserializeJson() failed: "));
           Serial.println(error.f_str());
           return;
@@ -189,15 +187,13 @@ void loop() {
         subLab = Estado[1]; // 1 [SubLab 1], 0 [SubLab 2]
         iniLab = Estado[2]; // 1 [Inicia Experimento], 0 [Finaliza Experimento]
 
-        if(num_Lab==3) // Control de numero de lab.
-        {
+        if(num_Lab==3){ // Control de numero de lab.
           JsonArray Analogico = doc["Analogico"];
           Analogico_0 = Analogico[0];
           Analogico_1 = Analogico[1];
           Analogico_2 = Analogico[2];
           Analogico_3 = Analogico[3];
           Analogico_4 = Analogico[4];
-        //client.stop();
         }
       }
     }
@@ -262,29 +258,27 @@ void hacer(){
  * @param distancia_fl indica la distancia entre foco y lente
  * @param distancia_lp indica la distancia entre lente y pantalla
  */
-void Convergentes(int diafragma, int cant_med, int distancia_fl, int distancia_lp)
-{
+void Convergentes(int diafragma, int cant_med, int distancia_fl, int distancia_lp){
   digitalWrite(Foco_pin, HIGH); // Enciendo FOCO
-  switch (diafragma) // Posicion del diafragma
-  {
-  case 0:
-    servo_diafragma.write(0);// Desplazamos a la posición 0º
-    break; 
-  case 1:
-    servo_diafragma.write(45);// Desplazamos a la posición 0º
-    break;
-  case 2:
-    servo_diafragma.write(90);// Desplazamos a la posición 0º
-    break;
-  case 3:
-    servo_diafragma.write(135);// Desplazamos a la posición 0º
-    break;
-  case 4:
-    servo_diafragma.write(180);// Desplazamos a la posición 0º
-    break;
-  default:
-    servo_diafragma.write(0);// Desplazamos a la posición 0º
-    break;
+  switch (diafragma){ // Posicion del diafragma
+    case 0:
+      servo_diafragma.write(0);// Desplazamos a la posición 0º
+      break; 
+    case 1:
+      servo_diafragma.write(45);// Desplazamos a la posición 0º
+      break;
+    case 2:
+      servo_diafragma.write(90);// Desplazamos a la posición 0º
+      break;
+    case 3:
+      servo_diafragma.write(135);// Desplazamos a la posición 0º
+      break;
+    case 4:
+      servo_diafragma.write(180);// Desplazamos a la posición 0º
+      break;
+    default:
+      servo_diafragma.write(0);// Desplazamos a la posición 0º
+      break;
   }
   // Controlo motores
   Control_Motor(1, distancia_fl);
@@ -303,29 +297,27 @@ void Convergentes(int diafragma, int cant_med, int distancia_fl, int distancia_l
  * @param distancia_l1l2 indica la distancia entre lente 1 y lente 2
  * @param distancia_l2p indica la distancia entre lente 2 y la pantalla
  */
-void Divergentes(int diafragma, int cant_med, int distancia_fl1, int distancia_l1l2, int distancia_l2p)
-{
+void Divergentes(int diafragma, int cant_med, int distancia_fl1, int distancia_l1l2, int distancia_l2p){
   Serial.println("Divergentes");
-  switch (diafragma) // Posicion del diafragma
-  {
-  case 0:
-    servo_diafragma.write(0);// Desplazamos a la posición 0º
-    break; 
-  case 1:
-    servo_diafragma.write(30);// Desplazamos a la posición 0º
-    break;
-  case 2:
-    servo_diafragma.write(60);// Desplazamos a la posición 0º
-    break;
-  case 3:
-    servo_diafragma.write(90);// Desplazamos a la posición 0º
-    break;
-  case 4:
-    servo_diafragma.write(120);// Desplazamos a la posición 0º
-    break;
-  default:
-    servo_diafragma.write(0);// Desplazamos a la posición 0º
-    break;
+  switch (diafragma){ // Posicion del diafragma
+    case 0:
+      servo_diafragma.write(0);// Desplazamos a la posición 0º
+      break; 
+    case 1:
+      servo_diafragma.write(30);// Desplazamos a la posición 0º
+      break;
+    case 2:
+      servo_diafragma.write(60);// Desplazamos a la posición 0º
+      break;
+    case 3:
+      servo_diafragma.write(90);// Desplazamos a la posición 0º
+      break;
+    case 4:
+      servo_diafragma.write(120);// Desplazamos a la posición 0º
+      break;
+    default:
+      servo_diafragma.write(0);// Desplazamos a la posición 0º
+      break;
   }
   // Controlo motores
   if(!bandera_fin_m1) Control_Motor(1, distancia_fl1);
@@ -340,11 +332,9 @@ void Divergentes(int diafragma, int cant_med, int distancia_fl1, int distancia_l
  * @param motor  Indica el numero del motor a utilizar
  * @param distancia indica la distancia requerida para el motor seleccionado
  */
-void Control_Motor(int motor, int distancia)
-{
+void Control_Motor(int motor, int distancia){
   bool sentido=true;
-  switch (motor)  // se controla motor a mover
-  {
+  switch (motor){ // se controla motor a mover
     case 1:
       sentido = control_distancia(distancia_act_1, distancia);
       if(dist_mov==0) {bandera_fin_m1 = 1; }//Serial.println("bandera Fin M1");}
@@ -383,8 +373,7 @@ void Control_Motor(int motor, int distancia)
  * @param distancia distancia requerida.
  * @return bool Indica el sentido de giro 
  */
-bool control_distancia(int distancia_act, int distancia)
-{
+bool control_distancia(int distancia_act, int distancia){
 //  bool sentido = true; // true = derecha, false = izquierda
   if (distancia >= limite_inferior_riel and distancia <= limite_superior_riel){ // maximo movimiento es 100 mm
     if (distancia_act > distancia){sentido = false;dist_mov = (distancia_act - distancia);}    
@@ -392,7 +381,7 @@ bool control_distancia(int distancia_act, int distancia)
     if (distancia_act == distancia) dist_mov = 0;    
 //    Serial.println("Sentido = "+String(sentido));
   }
-  else Serial.println("Distancia no permitida"); Errores=1; 
+  else{ Serial.println("Distancia no permitida"); Errores=1;}
   return sentido;
 }
 
