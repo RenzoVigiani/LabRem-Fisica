@@ -9,7 +9,7 @@ EthernetServer server = EthernetServer(server_port);
 //----------------------------------------------//
 // Defino variables para Json
 #define const_mje 256
-#define const_valores 236
+#define const_valores 241
 
 //char Mensaje_recibido[const_mje] = {0}; // Mensaje recibido por ethernet. (Comando + JSON) 
 //char valores_recibidos[const_valores] = {0}; // JSON recibido.
