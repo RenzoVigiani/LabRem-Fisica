@@ -6,7 +6,7 @@ Cada vez que se quiere modificar algun dato en el laboratorio. El Servidor debe 
 
 #### Json a enviar (ejemplo)
  
-    { "Estado": [0,true,false],"Analogico": [1,0,125,542,2]}
+    { "Estado": [0,true,false],"Analogico": [1,125,542,2]}
 
 Y para obtener avances de los datos o reporte de los datos debe enviar un:
 
@@ -16,7 +16,7 @@ De esta forma el Arduino responde ante una petición.
 
 #### Json a recibir (ejemplo)
  
-    { "Estado": [0,true,false],"Analogico": [1,0,125,542,2], "Error": "Mensaje de error"}
+    { "Estado": [0,true,false],"Analogico": [1,125,542,2], "Error": "Mensaje de error"}
 
 ## Sintaxis
 
@@ -34,11 +34,10 @@ Es un array conformado por 3 elementos en el siguiente orden: [Laboratorio, SubL
 
 ***Convergente***
 
-- Analogico:[Tipo_Diafragma,Cant_Med,Distancia_FL,Distancia_LP]
+- Analogico:[Tipo_Diafragma,Distancia_FL,Distancia_LP]
 
 Distancia_FL = Foco Lente 
 Distancia_LP = Lente Pantalla
-Cant_Med = Cantidad de mediciones a realizar. Cada vez que incrementa el valor se envía una muestra de las condiciones actuales y vuelve a condiciones iniciales el sistema.
 - Tipo_Diafragma = Indica el tipo de diafragma
   - 0 : Sin diafragma
   - 1 : Chico
@@ -47,7 +46,7 @@ Cant_Med = Cantidad de mediciones a realizar. Cada vez que incrementa el valor s
 
 ***Divergente***
 
-- Analogico:[Tipo_Diafragma,Cant_Med,Distancia_FL1,Distancia_L1L2,Distancia_L2P]
+- Analogico:[Tipo_Diafragma,Distancia_FL1,Distancia_L1L2,Distancia_L2P]
 
 ## Valores permitidos
 
@@ -61,7 +60,6 @@ Los valores permitidos en las distancias son:
 |L1L2:Lente1 Lente2 |    0    |   700   |  [mm]  |
 |L2P:Lente2 Pantalla|    0    |   900   |  [mm]  |
 
-Máxima cantidad de mediciones = 10 [veces]
 
 **Error**
 Es una variable numerica que representa un mensaje de error. 
@@ -70,9 +68,8 @@ Es una variable numerica que representa un mensaje de error.
 |-----------------------------------|---------|
 | Sin errores                       |    0    |
 | Error de distancia                |    1    |
-| Error de cantidad de mediciones   |    2    |
-| Error de tipo de diafragma        |    3    |
-| Error de laboratorio incorrecto   |    4    |
+| Error de tipo de diafragma        |    2    |
+| Error de laboratorio incorrecto   |    3    |
 
 ## Diagramas
 
