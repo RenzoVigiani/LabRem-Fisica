@@ -2609,33 +2609,24 @@ design rules under a new name.</description>
 <contactref element="GND" pad="3"/>
 <contactref element="GND" pad="2"/>
 <contactref element="MODULO_ETHERNET" pad="GND"/>
-<contactref element="ARDUINOMEGA2560" pad="GND@7"/>
-<contactref element="ARDUINOMEGA2560" pad="GND@6"/>
 <contactref element="ARDUINOMEGA2560" pad="GND@3"/>
 <contactref element="ARDUINOMEGA2560" pad="GND@2"/>
 <contactref element="ARDUINOMEGA2560" pad="GND@1"/>
 <contactref element="GPIO_DIG" pad="19"/>
 <contactref element="GPIO_DIG" pad="20"/>
-<contactref element="IC1" pad="1"/>
 <contactref element="IC1" pad="9"/>
-<contactref element="IC2" pad="1"/>
 <contactref element="IC2" pad="9"/>
-<contactref element="IC3" pad="1"/>
 <contactref element="IC3" pad="9"/>
-<wire x1="63.5" y1="36.83" x2="66.04" y2="39.37" width="0.6096" layer="16"/>
 <wire x1="66.04" y1="39.37" x2="66.04" y2="50.8" width="0.6096" layer="16"/>
 <wire x1="66.04" y1="50.8" x2="69.85" y2="54.61" width="0.6096" layer="16"/>
 <wire x1="69.85" y1="54.61" x2="71.12" y2="54.61" width="0.8128" layer="16"/>
 <wire x1="71.12" y1="54.61" x2="80.01" y2="45.72" width="0.8128" layer="16"/>
 <wire x1="80.01" y1="45.72" x2="80.01" y2="38.1" width="0.8128" layer="16"/>
 <wire x1="80.01" y1="38.1" x2="81.28" y2="36.83" width="0.8128" layer="16"/>
-<wire x1="81.28" y1="36.83" x2="82.55" y2="36.83" width="0.8128" layer="16"/>
 <wire x1="50.8" y1="54.61" x2="52.07" y2="54.61" width="0.8128" layer="16"/>
 <wire x1="52.07" y1="54.61" x2="61.214" y2="45.466" width="0.8128" layer="16"/>
 <wire x1="61.214" y1="45.466" x2="61.214" y2="37.846" width="0.8128" layer="16"/>
 <wire x1="61.214" y1="37.846" x2="62.23" y2="36.83" width="0.8128" layer="16"/>
-<wire x1="62.23" y1="36.83" x2="63.5" y2="36.83" width="0.8128" layer="16"/>
-<wire x1="43.18" y1="36.83" x2="43.942" y2="36.83" width="0.8128" layer="16"/>
 <wire x1="43.942" y1="36.83" x2="45.72" y2="38.608" width="0.8128" layer="16"/>
 <wire x1="45.72" y1="50.8" x2="49.53" y2="54.61" width="0.8128" layer="16"/>
 <wire x1="49.53" y1="54.61" x2="50.8" y2="54.61" width="0.8128" layer="16"/>
@@ -2644,7 +2635,6 @@ design rules under a new name.</description>
 <wire x1="31.75" y1="54.61" x2="41.021" y2="45.339" width="0.8128" layer="16"/>
 <wire x1="41.021" y1="45.339" x2="41.021" y2="37.846" width="0.8128" layer="16"/>
 <wire x1="41.021" y1="37.846" x2="42.037" y2="36.83" width="0.8128" layer="16"/>
-<wire x1="42.037" y1="36.83" x2="43.18" y2="36.83" width="0.8128" layer="16"/>
 <contactref element="UART_0" pad="3"/>
 <wire x1="16.7335" y1="55.88" x2="16.2255" y2="55.372" width="0.8128" layer="16"/>
 <wire x1="16.2255" y1="55.372" x2="16.2255" y2="49.911" width="0.8128" layer="16"/>
@@ -2688,7 +2678,6 @@ design rules under a new name.</description>
 <wire x1="64.77" y1="27.94" x2="67.31" y2="30.48" width="0.508" layer="16"/>
 <wire x1="67.31" y1="30.48" x2="80.01" y2="30.48" width="0.508" layer="16"/>
 <wire x1="80.01" y1="30.48" x2="82.55" y2="33.02" width="0.508" layer="16"/>
-<wire x1="82.55" y1="33.02" x2="82.55" y2="36.83" width="0.508" layer="16"/>
 <wire x1="50.038" y1="27.94" x2="64.77" y2="27.94" width="0.508" layer="16"/>
 <wire x1="34.29" y1="5.08" x2="34.29" y2="2.54" width="0.8128" layer="16"/>
 <wire x1="32.004" y1="0.254" x2="34.29" y2="2.54" width="0.8128" layer="16"/>
@@ -2714,11 +2703,9 @@ design rules under a new name.</description>
 <wire x1="94.615" y1="0.889" x2="97.79" y2="4.064" width="0.508" layer="16"/>
 <wire x1="97.79" y1="4.064" x2="97.79" y2="17.78" width="0.508" layer="16"/>
 <wire x1="97.79" y1="17.78" x2="97.79" y2="24.13" width="0.508" layer="16"/>
-<wire x1="88.9" y1="17.78" x2="91.44" y2="17.78" width="0.508" layer="16"/>
 <via x="91.44" y="17.78" extent="1-16" drill="0.65"/>
 <wire x1="97.79" y1="17.78" x2="95.25" y2="17.78" width="0.6096" layer="16"/>
 <via x="95.25" y="17.78" extent="1-16" drill="0.65"/>
-<wire x1="86.36" y1="17.78" x2="88.9" y2="17.78" width="0.508" layer="16"/>
 <wire x1="91.44" y1="17.78" x2="95.25" y2="17.78" width="0.508" layer="1"/>
 <wire x1="2.54" y1="1.524" x2="3.81" y2="0.254" width="0.8128" layer="16"/>
 <wire x1="3.81" y1="0.254" x2="6.35" y2="0.254" width="0.8128" layer="16"/>
@@ -2754,8 +2741,15 @@ design rules under a new name.</description>
 <contactref element="R7" pad="1"/>
 <contactref element="VIN1" pad="2"/>
 <contactref element="VIN2" pad="2"/>
+<contactref element="ARDUINOMEGA2560" pad="GND@6"/>
+<contactref element="ARDUINOMEGA2560" pad="GND@7"/>
 <wire x1="58.42" y1="67.31" x2="66.04" y2="67.31" width="0" layer="19" extent="1-1"/>
-<wire x1="69.85" y1="39.37" x2="63.5" y2="36.83" width="0" layer="19" extent="1-1"/>
+<wire x1="88.9" y1="17.78" x2="91.44" y2="17.78" width="0" layer="19" extent="1-1"/>
+<wire x1="86.36" y1="17.78" x2="88.9" y2="17.78" width="0" layer="19" extent="1-1"/>
+<wire x1="81.28" y1="36.83" x2="82.55" y2="33.02" width="0" layer="19" extent="16-16"/>
+<wire x1="69.85" y1="39.37" x2="66.04" y2="39.37" width="0" layer="19" extent="16-16"/>
+<wire x1="62.23" y1="36.83" x2="66.04" y2="39.37" width="0" layer="19" extent="16-16"/>
+<wire x1="42.037" y1="36.83" x2="43.942" y2="36.83" width="0" layer="19" extent="16-16"/>
 <wire x1="-11.43" y1="5.08" x2="11.43" y2="12.3495" width="0" layer="19" extent="16-16"/>
 <wire x1="-13.97" y1="5.08" x2="-11.43" y2="5.08" width="0" layer="19" extent="1-1"/>
 <wire x1="-20.32" y1="5.08" x2="-13.97" y2="5.08" width="0" layer="19" extent="1-1"/>
@@ -2944,8 +2938,14 @@ design rules under a new name.</description>
 <wire x1="4.572" y1="66.802" x2="7.62" y2="69.85" width="0.8128" layer="16"/>
 <contactref element="ARDUINOMEGA2560" pad="GND@4"/>
 <contactref element="ARDUINOMEGA2560" pad="GND@5"/>
+<contactref element="IC2" pad="10"/>
+<contactref element="IC1" pad="10"/>
+<contactref element="IC3" pad="10"/>
 <wire x1="86.36" y1="60.96" x2="88.9" y2="60.96" width="0" layer="19" extent="1-1"/>
-<wire x1="30.48" y1="12.7" x2="86.36" y2="60.96" width="0" layer="19" extent="1-1"/>
+<wire x1="69.85" y1="52.07" x2="86.36" y2="60.96" width="0" layer="19" extent="1-1"/>
+<wire x1="50.8" y1="52.07" x2="69.85" y2="52.07" width="0" layer="19" extent="1-1"/>
+<wire x1="30.48" y1="52.07" x2="50.8" y2="52.07" width="0" layer="19" extent="1-1"/>
+<wire x1="7.62" y1="69.85" x2="30.48" y2="52.07" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="A0">
 <contactref element="ANALOG_1" pad="1"/>
@@ -3119,14 +3119,14 @@ design rules under a new name.</description>
 <contactref element="GPIO_DIG" pad="14"/>
 <wire x1="88.9" y1="30.48" x2="92.71" y2="30.48" width="0.508" layer="16"/>
 </signal>
-<signal name="NT">
+<signal name="D46">
 <contactref element="ARDUINOMEGA2560" pad="46"/>
 <contactref element="GPIO_DIG" pad="15"/>
 <wire x1="86.36" y1="27.94" x2="87.63" y2="29.21" width="0.508" layer="16"/>
 <wire x1="87.63" y1="29.21" x2="93.98" y2="29.21" width="0.508" layer="16"/>
 <wire x1="93.98" y1="29.21" x2="95.25" y2="27.94" width="0.508" layer="16"/>
 </signal>
-<signal name="WOL">
+<signal name="D47">
 <contactref element="ARDUINOMEGA2560" pad="47"/>
 <contactref element="GPIO_DIG" pad="16"/>
 <wire x1="88.9" y1="27.94" x2="92.71" y2="27.94" width="0.508" layer="16"/>
@@ -3172,12 +3172,12 @@ design rules under a new name.</description>
 <wire x1="50.673" y1="15.748" x2="91.948" y2="15.748" width="0.508" layer="16"/>
 <wire x1="92.71" y1="20.32" x2="91.313" y2="21.717" width="0.508" layer="16"/>
 </signal>
-<signal name="CLK">
+<signal name="D49">
 <contactref element="ARDUINOMEGA2560" pad="49"/>
 <contactref element="GPIO_DIG" pad="18"/>
 <wire x1="88.9" y1="25.4" x2="92.71" y2="25.4" width="0.508" layer="16"/>
 </signal>
-<signal name="RST_1">
+<signal name="D48">
 <contactref element="ARDUINOMEGA2560" pad="48"/>
 <contactref element="GPIO_DIG" pad="17"/>
 <wire x1="86.36" y1="25.4" x2="87.63" y2="26.67" width="0.508" layer="16"/>
@@ -3185,17 +3185,13 @@ design rules under a new name.</description>
 <wire x1="93.98" y1="26.67" x2="95.25" y2="25.4" width="0.508" layer="16"/>
 </signal>
 <signal name="D30">
-<contactref element="ARDUINOMEGA2560" pad="30"/>
 <contactref element="RELAYS" pad="3"/>
-<wire x1="86.36" y1="48.26" x2="87.63" y2="49.53" width="0.508" layer="16"/>
 <wire x1="87.63" y1="49.53" x2="91.694" y2="49.53" width="0.508" layer="16"/>
 <wire x1="94.234" y1="52.07" x2="91.694" y2="49.53" width="0.508" layer="16"/>
 <wire x1="94.234" y1="52.07" x2="95.25" y2="52.07" width="0.508" layer="16"/>
 </signal>
 <signal name="D28">
-<contactref element="ARDUINOMEGA2560" pad="28"/>
 <contactref element="RELAYS" pad="1"/>
-<wire x1="86.36" y1="50.8" x2="87.63" y2="52.07" width="0.508" layer="16"/>
 <wire x1="87.63" y1="52.07" x2="90.17" y2="52.07" width="0.508" layer="16"/>
 <wire x1="90.17" y1="52.07" x2="90.805" y2="52.705" width="0.508" layer="16"/>
 <wire x1="90.805" y1="52.705" x2="90.805" y2="55.245" width="0.508" layer="16"/>
@@ -3211,16 +3207,12 @@ design rules under a new name.</description>
 <wire x1="64.77" y1="52.07" x2="63.5" y2="52.07" width="0.508" layer="16"/>
 </signal>
 <signal name="D31">
-<contactref element="ARDUINOMEGA2560" pad="31"/>
 <contactref element="RELAYS" pad="4"/>
-<wire x1="88.9" y1="48.26" x2="93.98" y2="48.26" width="0.508" layer="16"/>
 <wire x1="93.98" y1="48.26" x2="95.25" y2="49.53" width="0.508" layer="16"/>
 </signal>
 <signal name="D29">
-<contactref element="ARDUINOMEGA2560" pad="29"/>
 <contactref element="RELAYS" pad="2"/>
 <wire x1="92.964" y1="54.61" x2="95.25" y2="54.61" width="0.508" layer="16"/>
-<wire x1="88.9" y1="50.8" x2="90.678" y2="50.8" width="0.508" layer="16"/>
 <wire x1="90.678" y1="50.8" x2="91.948" y2="52.07" width="0.508" layer="16"/>
 <wire x1="91.948" y1="53.594" x2="92.964" y2="54.61" width="0.508" layer="16"/>
 <wire x1="91.948" y1="52.07" x2="91.948" y2="53.594" width="0.508" layer="16"/>
@@ -3423,15 +3415,6 @@ design rules under a new name.</description>
 <contactref element="SW_M3" pad="3"/>
 <wire x1="-29.21" y1="2.54" x2="78.74" y2="60.96" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$4">
-<contactref element="IC1" pad="10"/>
-</signal>
-<signal name="N$5">
-<contactref element="IC2" pad="10"/>
-</signal>
-<signal name="N$6">
-<contactref element="IC3" pad="10"/>
-</signal>
 <signal name="N$3">
 <contactref element="VIN" pad="1"/>
 <contactref element="VOUT" pad="2"/>
@@ -3469,6 +3452,27 @@ design rules under a new name.</description>
 <contactref element="SERV_2" pad="2"/>
 <wire x1="27.94" y1="69.85" x2="45.72" y2="69.85" width="0" layer="19" extent="1-1"/>
 <wire x1="-24.13" y1="-11.43" x2="27.94" y2="69.85" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="M1_ENABLE">
+<contactref element="ARDUINOMEGA2560" pad="28"/>
+<contactref element="IC1" pad="1"/>
+<wire x1="43.18" y1="36.83" x2="86.36" y2="50.8" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="M2_ENABLE">
+<contactref element="ARDUINOMEGA2560" pad="29"/>
+<contactref element="IC2" pad="1"/>
+<wire x1="63.5" y1="36.83" x2="88.9" y2="50.8" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="M3_ENABLE">
+<contactref element="ARDUINOMEGA2560" pad="30"/>
+<contactref element="IC3" pad="1"/>
+<wire x1="82.55" y1="36.83" x2="86.36" y2="48.26" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="LED_AUX">
+<contactref element="ARDUINOMEGA2560" pad="11"/>
+</signal>
+<signal name="FOCO_PIN">
+<contactref element="ARDUINOMEGA2560" pad="31"/>
 </signal>
 </signals>
 <mfgpreviewcolors>

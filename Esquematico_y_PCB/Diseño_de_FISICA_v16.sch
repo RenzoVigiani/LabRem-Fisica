@@ -4814,12 +4814,12 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <part name="IC1" library="pololu-stepper-driver" deviceset="2133-DRV8825" device=""/>
 <part name="IC2" library="pololu-stepper-driver" deviceset="2133-DRV8825" device=""/>
 <part name="IC3" library="pololu-stepper-driver" deviceset="2133-DRV8825" device=""/>
-<part name="LED1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
-<part name="LED2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
-<part name="LED3" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
-<part name="LED4" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
-<part name="LED5" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
-<part name="LED6" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
+<part name="LED.ON" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
+<part name="LS_1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
+<part name="LS_2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
+<part name="LM_3" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
+<part name="LM_2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
+<part name="LM_1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:15797/1"/>
 <part name="UART_0" library="Connector" deviceset="PINHD-1X3" device="" package3d_urn="urn:adsk.eagle:package:22458/2"/>
 <part name="SW_M1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-2X2" device="" package3d_urn="urn:adsk.eagle:package:22455/2"/>
 <part name="SW_M2" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-2X2" device="" package3d_urn="urn:adsk.eagle:package:22455/2"/>
@@ -4830,14 +4830,14 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <part name="R7" library="Resistor" deviceset="R" device="CHIP-0805(2012-METRIC)" package3d_urn="urn:adsk.eagle:package:16378559/2" technology="_"/>
 <part name="R2" library="Resistor" deviceset="R" device="CHIP-0805(2012-METRIC)" package3d_urn="urn:adsk.eagle:package:16378559/2" technology="_"/>
 <part name="R3" library="Resistor" deviceset="R" device="CHIP-0805(2012-METRIC)" package3d_urn="urn:adsk.eagle:package:16378559/2" technology="_"/>
-<part name="JP1" library="adafruit" deviceset="PINHD-2X4" device=""/>
-<part name="JP2" library="adafruit" deviceset="PINHD-2X4" device=""/>
-<part name="JP3" library="adafruit" deviceset="PINHD-2X4" device=""/>
+<part name="DAUX_1" library="adafruit" deviceset="PINHD-2X4" device=""/>
+<part name="DAUX2" library="adafruit" deviceset="PINHD-2X4" device=""/>
+<part name="DAUX_3" library="adafruit" deviceset="PINHD-2X4" device=""/>
 <part name="RESET" library="switch-omron" library_urn="urn:adsk.eagle:library:377" deviceset="10-XX" device="" package3d_urn="urn:adsk.eagle:package:27496/1"/>
 <part name="R8" library="Resistor" deviceset="R" device="CHIP-0805(2012-METRIC)" package3d_urn="urn:adsk.eagle:package:16378559/2" technology="_"/>
-<part name="X1" library="con-ptr500" library_urn="urn:adsk.eagle:library:181" deviceset="AK300/2" device="" package3d_urn="urn:adsk.eagle:package:9881/1"/>
-<part name="X2" library="con-ptr500" library_urn="urn:adsk.eagle:library:181" deviceset="AK300/2" device="" package3d_urn="urn:adsk.eagle:package:9881/1"/>
-<part name="X3" library="con-ptr500" library_urn="urn:adsk.eagle:library:181" deviceset="AK300/2" device="" package3d_urn="urn:adsk.eagle:package:9881/1"/>
+<part name="+6V" library="con-ptr500" library_urn="urn:adsk.eagle:library:181" deviceset="AK300/2" device="" package3d_urn="urn:adsk.eagle:package:9881/1"/>
+<part name="+12V" library="con-ptr500" library_urn="urn:adsk.eagle:library:181" deviceset="AK300/2" device="" package3d_urn="urn:adsk.eagle:package:9881/1"/>
+<part name="FOCO" library="con-ptr500" library_urn="urn:adsk.eagle:library:181" deviceset="AK300/2" device="" package3d_urn="urn:adsk.eagle:package:9881/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -4925,27 +4925,27 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <attribute name="NAME" x="-40.64" y="93.345" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-40.64" y="67.31" size="1.778" layer="96"/>
 </instance>
-<instance part="LED1" gate="G$1" x="50.8" y="66.04" smashed="yes">
+<instance part="LED.ON" gate="G$1" x="50.8" y="66.04" smashed="yes">
 <attribute name="NAME" x="54.356" y="61.468" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="56.515" y="61.468" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="LED2" gate="G$1" x="35.56" y="54.61" smashed="yes">
+<instance part="LS_1" gate="G$1" x="35.56" y="54.61" smashed="yes">
 <attribute name="NAME" x="39.116" y="50.038" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="41.275" y="50.038" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="LED3" gate="G$1" x="43.18" y="54.61" smashed="yes">
+<instance part="LS_2" gate="G$1" x="43.18" y="54.61" smashed="yes">
 <attribute name="NAME" x="46.736" y="50.038" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="48.895" y="50.038" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="LED4" gate="G$1" x="20.32" y="66.04" smashed="yes">
+<instance part="LM_3" gate="G$1" x="20.32" y="66.04" smashed="yes">
 <attribute name="NAME" x="23.876" y="61.468" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="26.035" y="61.468" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="LED5" gate="G$1" x="12.7" y="66.04" smashed="yes">
+<instance part="LM_2" gate="G$1" x="12.7" y="66.04" smashed="yes">
 <attribute name="NAME" x="16.256" y="61.468" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="18.415" y="61.468" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="LED6" gate="G$1" x="5.08" y="66.04" smashed="yes">
+<instance part="LM_1" gate="G$1" x="5.08" y="66.04" smashed="yes">
 <attribute name="NAME" x="8.636" y="61.468" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="10.795" y="61.468" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -4985,15 +4985,15 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <attribute name="NAME" x="41.6814" y="63.5" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="46.482" y="63.5" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="JP1" gate="A" x="186.69" y="88.9" smashed="yes">
+<instance part="DAUX_1" gate="A" x="186.69" y="88.9" smashed="yes">
 <attribute name="NAME" x="180.34" y="97.155" size="1.778" layer="95"/>
 <attribute name="VALUE" x="180.34" y="81.28" size="1.778" layer="96"/>
 </instance>
-<instance part="JP2" gate="A" x="186.69" y="73.66" smashed="yes">
+<instance part="DAUX2" gate="A" x="186.69" y="73.66" smashed="yes">
 <attribute name="NAME" x="180.34" y="81.915" size="1.778" layer="95"/>
 <attribute name="VALUE" x="180.34" y="66.04" size="1.778" layer="96"/>
 </instance>
-<instance part="JP3" gate="A" x="186.69" y="58.42" smashed="yes">
+<instance part="DAUX_3" gate="A" x="186.69" y="58.42" smashed="yes">
 <attribute name="NAME" x="180.34" y="66.675" size="1.778" layer="95"/>
 <attribute name="VALUE" x="180.34" y="50.8" size="1.778" layer="96"/>
 </instance>
@@ -5005,24 +5005,24 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <attribute name="NAME" x="46.7614" y="100.33" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="51.562" y="100.33" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="X1" gate="-1" x="-52.07" y="179.07" smashed="yes">
+<instance part="+6V" gate="-1" x="-52.07" y="179.07" smashed="yes">
 <attribute name="NAME" x="-53.34" y="179.959" size="1.778" layer="95" rot="R180"/>
 </instance>
-<instance part="X1" gate="-2" x="-52.07" y="182.88" smashed="yes">
+<instance part="+6V" gate="-2" x="-52.07" y="182.88" smashed="yes">
 <attribute name="NAME" x="-53.34" y="183.769" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="-55.88" y="179.197" size="1.778" layer="96"/>
 </instance>
-<instance part="X2" gate="-1" x="-52.07" y="167.64" smashed="yes">
+<instance part="+12V" gate="-1" x="-52.07" y="167.64" smashed="yes">
 <attribute name="NAME" x="-53.34" y="168.529" size="1.778" layer="95" rot="R180"/>
 </instance>
-<instance part="X2" gate="-2" x="-52.07" y="172.72" smashed="yes">
+<instance part="+12V" gate="-2" x="-52.07" y="172.72" smashed="yes">
 <attribute name="NAME" x="-53.34" y="173.609" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="-55.88" y="169.037" size="1.778" layer="96"/>
 </instance>
-<instance part="X3" gate="-1" x="318.77" y="166.37" smashed="yes" rot="R180">
+<instance part="FOCO" gate="-1" x="318.77" y="166.37" smashed="yes" rot="R180">
 <attribute name="NAME" x="320.04" y="165.481" size="1.778" layer="95"/>
 </instance>
-<instance part="X3" gate="-2" x="318.77" y="171.45" smashed="yes" rot="R180">
+<instance part="FOCO" gate="-2" x="318.77" y="171.45" smashed="yes" rot="R180">
 <attribute name="NAME" x="320.04" y="170.561" size="1.778" layer="95"/>
 <attribute name="VALUE" x="322.58" y="175.133" size="1.778" layer="96" rot="R180"/>
 </instance>
@@ -5178,7 +5178,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <label x="-30.48" y="179.07" size="1.27" layer="95" xref="yes"/>
 <wire x1="-30.48" y1="179.07" x2="-46.99" y2="179.07" width="0.1524" layer="91"/>
-<pinref part="X1" gate="-1" pin="KL"/>
+<pinref part="+6V" gate="-1" pin="KL"/>
 </segment>
 <segment>
 <pinref part="Q1" gate="G$1" pin="E"/>
@@ -5187,12 +5187,12 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="243.84" y="133.35" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="LED2" gate="G$1" pin="C"/>
+<pinref part="LS_1" gate="G$1" pin="C"/>
 <pinref part="GND5" gate="1" pin="GND"/>
 <wire x1="35.56" y1="49.53" x2="35.56" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="LED3" gate="G$1" pin="C"/>
+<pinref part="LS_2" gate="G$1" pin="C"/>
 <pinref part="GND6" gate="1" pin="GND"/>
 <wire x1="43.18" y1="49.53" x2="43.18" y2="45.72" width="0.1524" layer="91"/>
 </segment>
@@ -5200,30 +5200,30 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="-30.48" y="167.64" size="1.27" layer="95" xref="yes"/>
 <label x="-30.48" y="167.64" size="1.27" layer="95" xref="yes"/>
 <wire x1="-30.48" y1="167.64" x2="-46.99" y2="167.64" width="0.1524" layer="91"/>
-<pinref part="X2" gate="-1" pin="KL"/>
+<pinref part="+12V" gate="-1" pin="KL"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="7"/>
+<pinref part="DAUX2" gate="A" pin="7"/>
 <wire x1="184.15" y1="71.12" x2="177.8" y2="71.12" width="0.1524" layer="91"/>
 <label x="177.8" y="71.12" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="8"/>
+<pinref part="DAUX2" gate="A" pin="8"/>
 <wire x1="191.77" y1="71.12" x2="198.12" y2="71.12" width="0.1524" layer="91"/>
 <label x="198.12" y="71.12" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="6"/>
+<pinref part="DAUX2" gate="A" pin="6"/>
 <wire x1="191.77" y1="73.66" x2="198.12" y2="73.66" width="0.1524" layer="91"/>
 <label x="198.12" y="73.66" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="1"/>
+<pinref part="DAUX_1" gate="A" pin="1"/>
 <wire x1="184.15" y1="93.98" x2="177.8" y2="93.98" width="0.1524" layer="91"/>
 <label x="177.8" y="93.98" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="2"/>
+<pinref part="DAUX_1" gate="A" pin="2"/>
 <wire x1="191.77" y1="93.98" x2="198.12" y2="93.98" width="0.1524" layer="91"/>
 <label x="198.12" y="93.98" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -5238,20 +5238,20 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <wire x1="50.8" y1="58.42" x2="50.8" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="R1" gate="G$1" pin="2"/>
-<pinref part="LED1" gate="G$1" pin="C"/>
+<pinref part="LED.ON" gate="G$1" pin="C"/>
 </segment>
 </net>
 <net name="N$23" class="0">
 <segment>
 <wire x1="20.32" y1="58.42" x2="20.32" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="2"/>
-<pinref part="LED4" gate="G$1" pin="C"/>
+<pinref part="LM_3" gate="G$1" pin="C"/>
 </segment>
 </net>
 <net name="N$24" class="0">
 <segment>
 <pinref part="R5" gate="G$1" pin="2"/>
-<pinref part="LED5" gate="G$1" pin="C"/>
+<pinref part="LM_2" gate="G$1" pin="C"/>
 <wire x1="12.7" y1="60.96" x2="12.7" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -5259,7 +5259,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <wire x1="5.08" y1="58.42" x2="5.08" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="R6" gate="G$1" pin="2"/>
-<pinref part="LED6" gate="G$1" pin="C"/>
+<pinref part="LM_1" gate="G$1" pin="C"/>
 </segment>
 </net>
 <net name="DIR_1" class="0">
@@ -5315,14 +5315,19 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <wire x1="5.08" y1="68.58" x2="5.08" y2="76.2" width="0.1524" layer="91"/>
 <label x="5.08" y="76.2" size="1.27" layer="95" ratio="4" rot="R90" xref="yes"/>
-<pinref part="LED6" gate="G$1" pin="A"/>
+<pinref part="LM_1" gate="G$1" pin="A"/>
+</segment>
+<segment>
+<pinref part="ARDUINOMEGA2560" gate="G$1" pin="12"/>
+<wire x1="135.89" y1="119.38" x2="147.32" y2="119.38" width="0.1524" layer="91"/>
+<label x="147.32" y="119.38" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="LED_MOT_2" class="0">
 <segment>
 <wire x1="12.7" y1="68.58" x2="12.7" y2="76.2" width="0.1524" layer="91"/>
 <label x="12.7" y="76.2" size="1.27" layer="95" ratio="4" rot="R90" xref="yes"/>
-<pinref part="LED5" gate="G$1" pin="A"/>
+<pinref part="LM_2" gate="G$1" pin="A"/>
 </segment>
 <segment>
 <pinref part="ARDUINOMEGA2560" gate="G$1" pin="3"/>
@@ -5358,7 +5363,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <wire x1="20.32" y1="68.58" x2="20.32" y2="76.2" width="0.1524" layer="91"/>
 <label x="20.32" y="76.2" size="1.27" layer="95" ratio="4" rot="R90" xref="yes"/>
-<pinref part="LED4" gate="G$1" pin="A"/>
+<pinref part="LM_3" gate="G$1" pin="A"/>
 </segment>
 <segment>
 <pinref part="ARDUINOMEGA2560" gate="G$1" pin="2"/>
@@ -5464,7 +5469,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <wire x1="50.8" y1="68.58" x2="50.8" y2="76.2" width="0.1524" layer="91"/>
 <label x="50.8" y="76.2" size="1.27" layer="95" ratio="4" rot="R90" xref="yes"/>
-<pinref part="LED1" gate="G$1" pin="A"/>
+<pinref part="LED.ON" gate="G$1" pin="A"/>
 </segment>
 <segment>
 <pinref part="ARDUINOMEGA2560" gate="G$1" pin="5V"/>
@@ -5506,12 +5511,12 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="242.57" y="173.99" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP3" gate="A" pin="1"/>
+<pinref part="DAUX_3" gate="A" pin="1"/>
 <wire x1="184.15" y1="63.5" x2="177.8" y2="63.5" width="0.1524" layer="91"/>
 <label x="177.8" y="63.5" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP3" gate="A" pin="2"/>
+<pinref part="DAUX_3" gate="A" pin="2"/>
 <wire x1="191.77" y1="63.5" x2="198.12" y2="63.5" width="0.1524" layer="91"/>
 <label x="198.12" y="63.5" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -5722,7 +5727,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="111.76" y="46.99" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="4"/>
+<pinref part="DAUX_1" gate="A" pin="4"/>
 <wire x1="191.77" y1="91.44" x2="198.12" y2="91.44" width="0.1524" layer="91"/>
 <label x="198.12" y="91.44" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -5734,7 +5739,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="113.03" y="41.91" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="3"/>
+<pinref part="DAUX_1" gate="A" pin="3"/>
 <wire x1="184.15" y1="91.44" x2="177.8" y2="91.44" width="0.1524" layer="91"/>
 <label x="177.8" y="91.44" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -5747,7 +5752,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="109.22" y="46.99" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="6"/>
+<pinref part="DAUX_1" gate="A" pin="6"/>
 <wire x1="191.77" y1="88.9" x2="198.12" y2="88.9" width="0.1524" layer="91"/>
 <label x="198.12" y="88.9" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -5759,7 +5764,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="110.49" y="41.91" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="5"/>
+<pinref part="DAUX_1" gate="A" pin="5"/>
 <wire x1="184.15" y1="88.9" x2="177.8" y2="88.9" width="0.1524" layer="91"/>
 <label x="177.8" y="88.9" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -5821,7 +5826,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="100.33" y="41.91" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="5"/>
+<pinref part="DAUX2" gate="A" pin="5"/>
 <wire x1="184.15" y1="73.66" x2="177.8" y2="73.66" width="0.1524" layer="91"/>
 <label x="177.8" y="73.66" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -6066,7 +6071,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <label x="-30.48" y="170.18" size="1.27" layer="95" xref="yes"/>
 <label x="-30.48" y="170.18" size="1.27" layer="95" xref="yes"/>
-<pinref part="X2" gate="-2" pin="KL"/>
+<pinref part="+12V" gate="-2" pin="KL"/>
 <wire x1="-45.72" y1="170.18" x2="-30.48" y2="170.18" width="0.1524" layer="91"/>
 <wire x1="-46.99" y1="172.72" x2="-45.72" y2="170.18" width="0.1524" layer="91"/>
 </segment>
@@ -6157,7 +6162,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <label x="-30.48" y="182.88" size="1.27" layer="95" xref="yes"/>
 <wire x1="-30.48" y1="182.88" x2="-46.99" y2="182.88" width="0.1524" layer="91"/>
-<pinref part="X1" gate="-2" pin="KL"/>
+<pinref part="+6V" gate="-2" pin="KL"/>
 </segment>
 </net>
 <net name="M1_ENABLE" class="0">
@@ -6239,14 +6244,14 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <net name="N$5" class="0">
 <segment>
 <pinref part="R2" gate="G$1" pin="1"/>
-<pinref part="LED2" gate="G$1" pin="A"/>
+<pinref part="LS_1" gate="G$1" pin="A"/>
 <wire x1="35.56" y1="62.23" x2="35.56" y2="57.15" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
-<pinref part="LED3" gate="G$1" pin="A"/>
+<pinref part="LS_2" gate="G$1" pin="A"/>
 <wire x1="43.18" y1="62.23" x2="43.18" y2="57.15" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -6258,7 +6263,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="106.68" y="46.99" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="8"/>
+<pinref part="DAUX_1" gate="A" pin="8"/>
 <wire x1="191.77" y1="86.36" x2="198.12" y2="86.36" width="0.1524" layer="91"/>
 <label x="198.12" y="86.36" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -6270,7 +6275,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="107.95" y="41.91" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP1" gate="A" pin="7"/>
+<pinref part="DAUX_1" gate="A" pin="7"/>
 <wire x1="184.15" y1="86.36" x2="177.8" y2="86.36" width="0.1524" layer="91"/>
 <label x="177.8" y="86.36" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -6283,7 +6288,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="104.14" y="46.99" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="2"/>
+<pinref part="DAUX2" gate="A" pin="2"/>
 <wire x1="191.77" y1="78.74" x2="198.12" y2="78.74" width="0.1524" layer="91"/>
 <label x="198.12" y="78.74" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -6295,7 +6300,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="105.41" y="41.91" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="1"/>
+<pinref part="DAUX2" gate="A" pin="1"/>
 <wire x1="184.15" y1="78.74" x2="177.8" y2="78.74" width="0.1524" layer="91"/>
 <label x="177.8" y="78.74" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -6308,7 +6313,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="101.6" y="46.99" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="4"/>
+<pinref part="DAUX2" gate="A" pin="4"/>
 <wire x1="191.77" y1="76.2" x2="198.12" y2="76.2" width="0.1524" layer="91"/>
 <label x="198.12" y="76.2" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -6320,14 +6325,14 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <label x="102.87" y="41.91" size="0.6096" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
-<pinref part="JP2" gate="A" pin="3"/>
+<pinref part="DAUX2" gate="A" pin="3"/>
 <wire x1="184.15" y1="76.2" x2="177.8" y2="76.2" width="0.1524" layer="91"/>
 <label x="177.8" y="76.2" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="D23" class="0">
 <segment>
-<pinref part="JP3" gate="A" pin="3"/>
+<pinref part="DAUX_3" gate="A" pin="3"/>
 <wire x1="184.15" y1="60.96" x2="177.8" y2="60.96" width="0.1524" layer="91"/>
 <label x="177.8" y="60.96" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -6339,7 +6344,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 </net>
 <net name="D25" class="0">
 <segment>
-<pinref part="JP3" gate="A" pin="5"/>
+<pinref part="DAUX_3" gate="A" pin="5"/>
 <wire x1="184.15" y1="58.42" x2="177.8" y2="58.42" width="0.1524" layer="91"/>
 <label x="177.8" y="58.42" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -6351,7 +6356,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 </net>
 <net name="D27" class="0">
 <segment>
-<pinref part="JP3" gate="A" pin="7"/>
+<pinref part="DAUX_3" gate="A" pin="7"/>
 <wire x1="184.15" y1="55.88" x2="177.8" y2="55.88" width="0.1524" layer="91"/>
 <label x="177.8" y="55.88" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -6363,7 +6368,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 </net>
 <net name="D22" class="0">
 <segment>
-<pinref part="JP3" gate="A" pin="4"/>
+<pinref part="DAUX_3" gate="A" pin="4"/>
 <wire x1="191.77" y1="60.96" x2="198.12" y2="60.96" width="0.1524" layer="91"/>
 <label x="198.12" y="60.96" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -6376,7 +6381,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 </net>
 <net name="D24" class="0">
 <segment>
-<pinref part="JP3" gate="A" pin="6"/>
+<pinref part="DAUX_3" gate="A" pin="6"/>
 <wire x1="191.77" y1="58.42" x2="198.12" y2="58.42" width="0.1524" layer="91"/>
 <label x="198.12" y="58.42" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -6389,7 +6394,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 </net>
 <net name="D26" class="0">
 <segment>
-<pinref part="JP3" gate="A" pin="8"/>
+<pinref part="DAUX_3" gate="A" pin="8"/>
 <wire x1="191.77" y1="55.88" x2="198.12" y2="55.88" width="0.1524" layer="91"/>
 <label x="198.12" y="55.88" size="0.8128" layer="95" xref="yes"/>
 </segment>
@@ -6421,7 +6426,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <segment>
 <pinref part="U$1" gate="G$1" pin="COM-OPEN"/>
 <wire x1="285.75" y1="173.99" x2="304.8" y2="173.99" width="0.1524" layer="91"/>
-<pinref part="X3" gate="-2" pin="KL"/>
+<pinref part="FOCO" gate="-2" pin="KL"/>
 <wire x1="304.8" y1="173.99" x2="304.8" y2="171.45" width="0.1524" layer="91"/>
 <wire x1="304.8" y1="171.45" x2="313.69" y2="171.45" width="0.1524" layer="91"/>
 </segment>
@@ -6429,7 +6434,7 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <net name="N$3" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="COM"/>
-<pinref part="X3" gate="-1" pin="KL"/>
+<pinref part="FOCO" gate="-1" pin="KL"/>
 <wire x1="290.83" y1="166.37" x2="313.69" y2="166.37" width="0.1524" layer="91"/>
 </segment>
 </net>
