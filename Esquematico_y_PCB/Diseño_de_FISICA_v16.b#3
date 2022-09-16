@@ -3249,9 +3249,6 @@ design rules under a new name.</description>
 <contactref element="IC3" pad="1"/>
 <wire x1="82.55" y1="36.83" x2="86.36" y2="48.26" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="LED_AUX">
-<contactref element="ARDUINOMEGA2560" pad="11"/>
-</signal>
 <signal name="FOCO_PIN">
 <contactref element="ARDUINOMEGA2560" pad="31"/>
 </signal>
