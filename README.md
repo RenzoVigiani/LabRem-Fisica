@@ -46,7 +46,7 @@ Distancia_LP = Lente Pantalla
 
 ***Divergente***
 
-- Analogico:[Tipo_Diafragma,Distancia_FL1,Distancia_L1L2,Distancia_L2P]
+- Analogico:[Tipo_Diafragma,Distancia_FL1,Distancia_L2P,Distancia_L1L2]
 
 ## Valores permitidos
 
