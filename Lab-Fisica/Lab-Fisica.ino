@@ -1,3 +1,4 @@
+
 // Defino las librerias a utilizar
 #include <ArduinoJson.h> // Para el manejo y conversión de JSON a vartiables
 #include <UIPEthernet.h> // Para el manejo del Shield Ethernet
@@ -87,14 +88,14 @@ uint8_t Errores = 0;
   int dist_mov; // distancia que se debe mover el motor en realidad. dist_mov=distancia_actual - distancia_deseada
   bool sentido=0; // indica el sentido de giro.
 // CONSTANTES
-#define min_real_l2p 70
-#define min_real_l1l2 70
 #define min_real_fl1 50
-#define min_real_fl2 120
-#define max_real_l1l2 900 
 #define max_real_fl1 920
-#define max_real_fl2 980
-#define max_real_l2p 980
+#define min_real_fl2 120
+#define max_real_fl2 970
+#define min_real_l2p 70
+#define max_real_l2p 970
+#define min_real_l1l2 70
+#define max_real_l1l2 900 
 
 #define min_mot_l1 50
 #define min_mot_p 50
@@ -394,19 +395,19 @@ void Control_Motor(int motor, int distancia){
 
   switch (motor){ // se controla motor a mover
     case 1:
-      sentido = sentido_giro(distancia_actual_foco, distancia);
+      sentido = control_giro(min_mot_f,max_mot_f, distancia_actual_foco, distancia);
       if(dist_mov==0) {bandera_fin_m1 = 1; digitalWrite(M1_Led,LOW);digitalWrite(M1_Enable,HIGH);}//Serial.println("bandera Fin M1");}
       distancia_actual_foco = controlDriver(dist_mov,distancia_actual_foco,sentido,M1_Step,M1_Direction);
       digitalWrite(M1_Led,HIGH);      
       break;
     case 2:
-      sentido = sentido_giro(distancia_act_lente_div, distancia);
+      sentido = control_giro(min_mot_p,max_mot_p, distancia_act_pantalla, distancia);
       if(dist_mov==0) {bandera_fin_m2 = 1; digitalWrite(M2_Led,LOW);digitalWrite(M2_Enable,HIGH);}//Serial.println("bandera Fin M2");}
       distancia_act_lente_div = controlDriver(dist_mov,distancia_act_lente_div,sentido,M2_Step,M2_Direction);
       digitalWrite(M2_Led,HIGH);
       break;
     case 3:
-      sentido = sentido_giro(distancia_act_pantalla, distancia);
+      sentido = control_giro(min_mot_l1,max_mot_l1, distancia_act_lente_div, distancia);
       if(dist_mov==0) {bandera_fin_m3 = 1;digitalWrite(M3_Led,LOW);digitalWrite(M2_Enable,HIGH);}//Serial.println("bandera Fin M3");}
       distancia_act_pantalla = controlDriver(dist_mov,distancia_act_pantalla,sentido,M3_Step,M3_Direction);
       digitalWrite(M3_Led,HIGH);
@@ -427,7 +428,7 @@ bool error_distancia(){
   if(Analogico_1 < 120){Errores=1;} //Distancia_fl2 = pos_f > 120 mm
   if(Analogico_2 < 50){Errores=1;} //Distancia_l2p = pos_p > 50 mm 
   if(Analogico_3 < 50){Errores=1;} //Distancia_l1l2 = pos_l1 > 50 mm
-  if((Analogico_3 - Analogico_1)<50){Errores=1} // Distancia_fl1 = pos_f - pos_l1 > 50 mm
+  if((Analogico_3 - Analogico_1)<50){Errores=1;} // Distancia_fl1 = pos_f - pos_l1 > 50 mm
   if(Errores==1){return false;}
   return true;
 }
@@ -438,18 +439,17 @@ bool error_distancia(){
  * Depende de la posición actual del motor.
    true = Indica que el sentido es horario 
  * false = Indica que el sentido es antihorario
+ * @param limite_inferior_riel Limite inferior de posición de cada motor.
+ * @param limite_superior_riel Limite superior de posición de cada motor.
  * @param distancia_act Distancia actual del motor indicado
  * @param distancia distancia requerida.
  * @return bool Indica el sentido de giro 
  */
-bool sentido_giro(int distancia_act, int distancia){
- 
-//  bool sentido = true; // true = derecha, false = izquierda
+bool control_giro(int limite_inferior_riel, int limite_superior_riel,int distancia_act, int distancia){
   if (distancia >= limite_inferior_riel and distancia <= limite_superior_riel){ // maximo movimiento es 100 mm
     if (distancia_act > distancia){sentido = false;dist_mov = (distancia_act - distancia);}    
     if (distancia_act < distancia){sentido = true;dist_mov = (distancia - distancia_act);}
     if (distancia_act == distancia) dist_mov = 0;    
-//    Serial.println("Sentido = "+String(sentido));
   }
   else{ Serial.println("Distancia no permitida"); Errores=1;}
   return sentido;
