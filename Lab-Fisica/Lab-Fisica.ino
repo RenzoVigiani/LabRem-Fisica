@@ -313,7 +313,7 @@ void Control(){
  */
 void Convergentes(int diafragma, int distancia_fl2, int distancia_l2p){
   digitalWrite(Foco_pin, HIGH); // Enciendo FOCO
-  mover_servo(servo_lente,0); // Lente desactivado
+  mover_servo(servo_lente,90); // Lente desactivado
   switch (diafragma){ // Posicion del diafragma
     case 0: mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
       break; 
@@ -325,7 +325,7 @@ void Convergentes(int diafragma, int distancia_fl2, int distancia_l2p){
       break;
     case 4: mover_servo(servo_diafragma,180);// Desplazamos a la posición 180º
       break;
-    default:mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
+    default:mover_servo(servo_diafragma,90);// Desplazamos a la posición 0º
       break;
   }
   // Controlo motores
@@ -348,7 +348,7 @@ void Convergentes(int diafragma, int distancia_fl2, int distancia_l2p){
  * @param distancia_l2p indica la distancia entre lente 2 y la pantalla
  */
 void Divergentes(int diafragma, int distancia_fl1, int distancia_l2p, int distancia_l1l2){
-  mover_servo(servo_lente,90); // Lente activado
+  mover_servo(servo_lente,0); // Lente activado
 //  Serial.println("Servo diafragma: "+ String(diafragma));
   switch (diafragma){ // Posicion del diafragma
     case 0: mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
@@ -361,7 +361,7 @@ void Divergentes(int diafragma, int distancia_fl1, int distancia_l2p, int distan
       break;
     case 4: mover_servo(servo_diafragma,180);// Desplazamos a la posición 180º
       break;
-    default:mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
+    default:mover_servo(servo_diafragma,90);// Desplazamos a la posición 0º
       break;
   }
   // Controlo motores
@@ -490,8 +490,8 @@ int controlDriver(int dist_mov, int aux_dist_actual, bool sentido,int step, int 
 void busco_cero(){
   while (!bandera_cero)
   {
-    mover_servo(servo_diafragma,0);
-    mover_servo(servo_lente,0);
+    mover_servo(servo_diafragma,90);
+    mover_servo(servo_lente,90);
     if(!digitalRead(M1_SW_fin) or !digitalRead(M2_SW_fin) or !digitalRead(M3_SW_fin)){
       mover_motor(M1_Direction,M1_Step,AntiHorario,0);
       mover_motor(M2_Direction,M2_Step,AntiHorario,0);
