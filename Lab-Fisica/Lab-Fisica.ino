@@ -62,47 +62,45 @@ uint8_t Errores = 0;
   #define Foco_pin 48 // Pin para habilitar relay de lampara.
 //----------------------------------------------//
 //Sentidos
-  #define AntiHorario LOW
-  #define Horario HIGH
+  #define AntiHorario HIGH
+  #define Horario LOW
 // VAriables de json 
+// CONSTANTES
+#define min_real_fl1 50
+#define max_real_fl1 920
+//#define min_real_fl2 120
+#define max_real_fl2 970
+//#define min_real_l2p 70
+#define max_real_l2p 970
+//#define min_real_l1l2 70
+#define max_real_l1l2 900 
+
 //---Estado
   int num_Lab=3; // 0 [Sist Dig], 1 [Sist Control], 2[Telecomunicaciones], 3[Fisica] 
   bool subLab=0; // 1 [SubLab 1], 0 [SubLab 2]
   bool iniLab=0;// 1 [Inicia Experimento], 0 [Finaliza Experimento]
 //---Analogico
-  int Analogico_0=0; // Tipo de diafragma
-  int Analogico_1=0; // Distancia 1
-  int Analogico_2=0; // Distancia 2
-  int Analogico_3=0; // Distancia 3
+  int distancia_fl2_act = max_real_fl2; // Distancia actual entre fuente y lente convergente (fija)
+  int distancia_fl1_act = max_real_fl1; // Distancia actual entre fuente y lente div
+  int distancia_l1l2_act= max_real_l1l2; // Distancia actual entre lente div y lente convergente (fija)
+  int distancia_l2p_act=max_real_l2p; // Distancia actual entre lente convergente (fija) y pantalla
+  int tipo_diafragma;
 //----------------------------------------------//
 //--- Variables auxiliares ---//
-//----------------------------------------------//
-// CALCULO DE DISTANCIAS ( Considerar diferencias de distancias generadas por las bases y la separación)
-  int distancia_actual_foco=10; //Distancia actual de motor de fuente de luz
-  int distancia_act_lente_div=10; // Distancia actual de motor de lente divergente
-  int distancia_act_pantalla=10; // Distancia actual de motor de pantalla
-  int distancia_fl2_act=0; // Distancia actual entre fuente y lente convergente (fija)
-  int distancia_fl1_act=0; // Distancia actual entre fuente y lente div
-  int distancia_l1l2_act=0; // Distancia actual entre lente div y lente convergente (fija)
-  int distancia_l2p_act=0; // Distancia actual entre lente convergente (fija) y pantalla
-  int dist_mov; // distancia que se debe mover el motor en realidad. dist_mov=distancia_actual - distancia_deseada
-  bool sentido=0; // indica el sentido de giro.
-// CONSTANTES
-#define min_real_fl1 50
-#define max_real_fl1 920
-#define min_real_fl2 120
-#define max_real_fl2 970
-#define min_real_l2p 70
-#define max_real_l2p 970
-#define min_real_l1l2 70
-#define max_real_l1l2 900 
-
 #define min_mot_l1 50
 #define min_mot_p 50
 #define min_mot_f 100
 #define max_mot_l1 920
 #define max_mot_p 950
 #define max_mot_f 950
+#define dif_real_motor 20
+//----------------------------------------------//
+// CALCULO DE DISTANCIAS ( Considerar diferencias de distancias generadas por las bases y la separación)
+  int distancia_act_foco; //Distancia actual de motor de fuente de luz
+  int distancia_act_lente_div; // Distancia actual de motor de lente divergente
+  int distancia_act_pantalla; // Distancia actual de motor de pantalla
+  int dist_mov; // distancia que se debe mover el motor en realidad. dist_mov=distancia_actual - distancia_deseada
+  bool sentido=0; // indica el sentido de giro.
 /*
 Lente 2 = convergente
 Lente 1 = divergente
@@ -134,7 +132,6 @@ Distancia_l1l2 = pos_l1 > 50 mm
 Distancia_fl2 = pos_f > 120 mm
 Distancia_l2p = pos_p > 50 mm 
 */
-
 
 // BANDERAS
   bool bandera_fin_m1=0; // bandera para determinar fin de mov de motor 1
@@ -214,14 +211,14 @@ void loop() {
         Estado.add(subLab);
         Estado.add(iniLab);
         JsonArray Analogicos = doc.createNestedArray("Analogicos");
-        Analogicos.add(Analogico_0);
+        Analogicos.add(tipo_diafragma);
         if(subLab){
-          Analogicos.add(distancia_fl2_act); // distancia del luz a lente fijo
-          Analogicos.add(distancia_l2p_act); // distancia lente fijo a pantalla
+          Analogicos.add(distancia_act_foco + dif_real_motor); // distancia del luz a lente fijo
+          Analogicos.add(distancia_act_pantalla + dif_real_motor); // distancia lente fijo a pantalla
         }else{
-          Analogicos.add(distancia_fl1_act); 
-          Analogicos.add(distancia_l1l2_act);
-          Analogicos.add(distancia_l2p_act);
+          Analogicos.add(distancia_act_foco - distancia_act_lente_div); 
+          Analogicos.add(distancia_act_pantalla + dif_real_motor);
+          Analogicos.add(distancia_act_lente_div + dif_real_motor);
         }
         JsonArray Error = doc.createNestedArray("Error");  
         Error.add(Errores);
@@ -256,15 +253,21 @@ void loop() {
           iniLab = Estado[2]; // 1 [Inicia Experimento], 0 [Finaliza Experimento]
         if(num_Lab==3){ // Control de numero de lab.
           JsonArray Analogico = doc["Analogico"];
-          Analogico_0 = Analogico[0];
+          tipo_diafragma = Analogico[0];
          if(subLab){
-            Analogico_1 = Analogico[1];
-            Analogico_2 = Analogico[2];
-            Analogico_3 = min_mot_l1;            
+            Serial.println("Sub - Laboratorio: Lentes convergentes"); 
+            distancia_fl2_act = Analogico[1];
+            distancia_fl2_act = distancia_fl2_act - dif_real_motor;
+            distancia_l2p_act = Analogico[2];
+            distancia_l2p_act = distancia_l2p_act - dif_real_motor;
           }else{
-            Analogico_1 = Analogico[1];
-            Analogico_2 = Analogico[2];
-            Analogico_3 = Analogico[3];
+            Serial.println("Sub - Laboratorio: Lentes Divergentes");  
+            distancia_fl1_act = Analogico[1];
+            distancia_fl1_act = distancia_fl1_act - dif_real_motor;
+            distancia_l2p_act = Analogico[2];
+            distancia_l2p_act = distancia_l2p_act - dif_real_motor;
+            distancia_l1l2_act = Analogico[3];
+            distancia_l1l2_act = distancia_l1l2_act - dif_real_motor;
           } 
         }
       }
@@ -282,12 +285,10 @@ void loop() {
 void Control(){
   if(num_Lab==3 and bandera_vueltas==0){ // Control de numero de lab.
     if (subLab and iniLab){
-      Serial.println("Sub - Laboratorio: Lentes convergentes"); 
-      Convergentes(Analogico_0, Analogico_1, Analogico_2);
+      Convergentes(tipo_diafragma,distancia_fl2_act,distancia_l2p_act);
     }
     else if (!subLab and iniLab){
-      Serial.println("Sub - Laboratorio: Lentes Divergentes");  
-      Divergentes(Analogico_0, Analogico_1, Analogico_2, Analogico_3);
+      Divergentes(tipo_diafragma,distancia_fl1_act,distancia_l2p_act,distancia_l1l2_act);
     }
     else{
       if(bandera_rep==0){
@@ -296,14 +297,12 @@ void Control(){
       }
     }
   }
-  else{
-    if(bandera_rep==0){
+  if(bandera_rep==0 and num_Lab!=3){
       Serial.println("Laboratorio incorrecto");  
       bandera_rep = 1; 
       Errores=3;
     }
   }
-}
 
 /**
  * @brief Funcion utilizada para la ejecución del laboratorio de lentes convergentes
@@ -316,32 +315,28 @@ void Convergentes(int diafragma, int distancia_fl2, int distancia_l2p){
   digitalWrite(Foco_pin, HIGH); // Enciendo FOCO
   mover_servo(servo_lente,0); // Lente desactivado
   switch (diafragma){ // Posicion del diafragma
-    case 0:
-      mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
+    case 0: mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
       break; 
-    case 1:
-      mover_servo(servo_diafragma,45);// Desplazamos a la posición 45º
+    case 1: mover_servo(servo_diafragma,45);// Desplazamos a la posición 45º
       break;
-    case 2:
-      mover_servo(servo_diafragma,90);// Desplazamos a la posición 90º
+    case 2: mover_servo(servo_diafragma,90);// Desplazamos a la posición 90º
       break;
-    case 3:
-      mover_servo(servo_diafragma,135);// Desplazamos a la posición 135º
+    case 3: mover_servo(servo_diafragma,135);// Desplazamos a la posición 135º
       break;
-    case 4:
-      mover_servo(servo_diafragma,180);// Desplazamos a la posición 180º
+    case 4: mover_servo(servo_diafragma,180);// Desplazamos a la posición 180º
       break;
-    default:
-      mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
+    default:mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
       break;
   }
   // Controlo motores
-  if(!error_distancia){
-    if(!bandera_fin_m1) Control_Motor(1, distancia_fl2);
-    if(!bandera_fin_m2) Control_Motor(2, distancia_l2p);
-    if(bandera_fin_m1 and bandera_fin_m2){bandera_vueltas=1;
-    digitalWrite(M1_Led,LOW);digitalWrite(M2_Led,LOW);digitalWrite(M3_Led,LOW);}
+  if(sin_error_distancia()){
+    if(digitalRead(M1_SW_fin) and !bandera_fin_m1) {Control_Motor(1, distancia_fl2);
+    }else{digitalWrite(M1_Led,LOW); digitalWrite(M1_Enable,HIGH);}
+    if(digitalRead(M2_SW_fin) and !bandera_fin_m2) {Control_Motor(2, distancia_l2p);
+    }else{digitalWrite(M2_Led,LOW); digitalWrite(M2_Enable,HIGH);}
+    if(bandera_fin_m1 and bandera_fin_m2){bandera_vueltas=1;}
   }
+
 }
 
 /**
@@ -352,35 +347,32 @@ void Convergentes(int diafragma, int distancia_fl2, int distancia_l2p){
  * @param distancia_l1l2 indica la distancia entre lente 1 y lente 2
  * @param distancia_l2p indica la distancia entre lente 2 y la pantalla
  */
-void Divergentes(int diafragma, int distancia_fl1, int distancia_l1l2, int distancia_l2p){
+void Divergentes(int diafragma, int distancia_fl1, int distancia_l2p, int distancia_l1l2){
   mover_servo(servo_lente,90); // Lente activado
+//  Serial.println("Servo diafragma: "+ String(diafragma));
   switch (diafragma){ // Posicion del diafragma
-    case 0:
-      mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
+    case 0: mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
       break; 
-    case 1:
-      mover_servo(servo_diafragma,45);// Desplazamos a la posición 45º
+    case 1: mover_servo(servo_diafragma,45);// Desplazamos a la posición 45º
       break;
-    case 2:
-      mover_servo(servo_diafragma,90);// Desplazamos a la posición 90º
+    case 2: mover_servo(servo_diafragma,90);// Desplazamos a la posición 90º
       break;
-    case 3:
-      mover_servo(servo_diafragma,135);// Desplazamos a la posición 135º
+    case 3: mover_servo(servo_diafragma,135);// Desplazamos a la posición 135º
       break;
-    case 4:
-      mover_servo(servo_diafragma,180);// Desplazamos a la posición 180º
+    case 4: mover_servo(servo_diafragma,180);// Desplazamos a la posición 180º
       break;
-    default:
-      mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
+    default:mover_servo(servo_diafragma,0);// Desplazamos a la posición 0º
       break;
   }
   // Controlo motores
-  if(!error_distancia){
-    if(!bandera_fin_m1) {Control_Motor(1, distancia_fl1);}
-    if(!bandera_fin_m2) {Control_Motor(2, distancia_l1l2);}
-    if(!bandera_fin_m3) {Control_Motor(3, distancia_l2p); }
+  if(sin_error_distancia()){
+    if(digitalRead(M1_SW_fin) and !bandera_fin_m1) {Control_Motor(1, distancia_fl1);}
+    if(digitalRead(M2_SW_fin) and !bandera_fin_m2) {Control_Motor(2, distancia_l2p);}
+    if(digitalRead(M3_SW_fin) and !bandera_fin_m3) {Control_Motor(3, distancia_l1l2);}
     if(bandera_fin_m1 and bandera_fin_m2 and bandera_fin_m3){bandera_vueltas=1;
-    digitalWrite(M1_Led,LOW);digitalWrite(M2_Led,LOW);digitalWrite(M3_Led,LOW);}
+    digitalWrite(M1_Led,LOW);digitalWrite(M2_Led,LOW);digitalWrite(M3_Led,LOW);
+    digitalWrite(M1_Enable,HIGH);digitalWrite(M2_Enable,HIGH);digitalWrite(M3_Enable,HIGH);
+    }
   }
 }
 
@@ -392,24 +384,26 @@ void Divergentes(int diafragma, int distancia_fl1, int distancia_l1l2, int dista
  */
 void Control_Motor(int motor, int distancia){
   bool sentido=true;
-
   switch (motor){ // se controla motor a mover
     case 1:
-      sentido = control_giro(min_mot_f,max_mot_f, distancia_actual_foco, distancia);
+      sentido = control_giro(min_mot_f,max_mot_f, distancia_act_foco, distancia);
       if(dist_mov==0) {bandera_fin_m1 = 1; digitalWrite(M1_Led,LOW);digitalWrite(M1_Enable,HIGH);}//Serial.println("bandera Fin M1");}
-      distancia_actual_foco = controlDriver(dist_mov,distancia_actual_foco,sentido,M1_Step,M1_Direction);
+      digitalWrite(M1_Enable,LOW);
+      distancia_act_foco = controlDriver(dist_mov,distancia_act_foco,sentido,M1_Step,M1_Direction);
       digitalWrite(M1_Led,HIGH);      
       break;
     case 2:
       sentido = control_giro(min_mot_p,max_mot_p, distancia_act_pantalla, distancia);
       if(dist_mov==0) {bandera_fin_m2 = 1; digitalWrite(M2_Led,LOW);digitalWrite(M2_Enable,HIGH);}//Serial.println("bandera Fin M2");}
-      distancia_act_lente_div = controlDriver(dist_mov,distancia_act_lente_div,sentido,M2_Step,M2_Direction);
+      digitalWrite(M2_Enable,LOW);
+      distancia_act_pantalla = controlDriver(dist_mov,distancia_act_pantalla,sentido,M2_Step,M2_Direction);
       digitalWrite(M2_Led,HIGH);
       break;
     case 3:
       sentido = control_giro(min_mot_l1,max_mot_l1, distancia_act_lente_div, distancia);
-      if(dist_mov==0) {bandera_fin_m3 = 1;digitalWrite(M3_Led,LOW);digitalWrite(M2_Enable,HIGH);}//Serial.println("bandera Fin M3");}
-      distancia_act_pantalla = controlDriver(dist_mov,distancia_act_pantalla,sentido,M3_Step,M3_Direction);
+      if(dist_mov==0) {bandera_fin_m3 = 1;digitalWrite(M3_Led,LOW);digitalWrite(M3_Enable,HIGH);}//Serial.println("bandera Fin M3");}
+      digitalWrite(M3_Enable,LOW);
+      distancia_act_lente_div = controlDriver(dist_mov,distancia_act_lente_div,sentido,M3_Step,M3_Direction);
       digitalWrite(M3_Led,HIGH);
       break;
     default:
@@ -423,13 +417,13 @@ void Control_Motor(int motor, int distancia){
  * Devuelve una variable buleana indicando si hay error en los valores de distancia. 
  * @return bool indica si hay error en la distancia.  variable Errores = 1;
  */
-bool error_distancia(){
+bool sin_error_distancia(){
 //Condiciones:
-  if(Analogico_1 < 120){Errores=1;} //Distancia_fl2 = pos_f > 120 mm
-  if(Analogico_2 < 50){Errores=1;} //Distancia_l2p = pos_p > 50 mm 
-  if(Analogico_3 < 50){Errores=1;} //Distancia_l1l2 = pos_l1 > 50 mm
-  if((Analogico_3 - Analogico_1)<50){Errores=1;} // Distancia_fl1 = pos_f - pos_l1 > 50 mm
-  if(Errores==1){return false;}
+  if(distancia_fl2_act < min_mot_f){Errores=1;} //Distancia_fl2 = pos_f > 120 mm
+  if(distancia_l2p_act < min_mot_p){Errores=1;} //Distancia_l2p = pos_p > 50 mm 
+  if(distancia_l1l2_act < min_mot_l1){Errores=1;} //Distancia_l1l2 = pos_l1 > 50 mm
+  if(distancia_fl1_act < min_real_fl1){Errores=1;} // Distancia_fl1 = pos_f - pos_l1 > 50 mm
+  if(Errores==1){Serial.println("Error = 1 : Error de distancias"); return false;}
   return true;
 }
 
@@ -439,17 +433,17 @@ bool error_distancia(){
  * Depende de la posición actual del motor.
    true = Indica que el sentido es horario 
  * false = Indica que el sentido es antihorario
- * @param limite_inferior_riel Limite inferior de posición de cada motor.
- * @param limite_superior_riel Limite superior de posición de cada motor.
+ * @param limite_inferior Limite inferior de posición de cada motor.
+ * @param limite_superior Limite superior de posición de cada motor.
  * @param distancia_act Distancia actual del motor indicado
  * @param distancia distancia requerida.
  * @return bool Indica el sentido de giro 
  */
-bool control_giro(int limite_inferior_riel, int limite_superior_riel,int distancia_act, int distancia){
-  if (distancia >= limite_inferior_riel and distancia <= limite_superior_riel){ // maximo movimiento es 100 mm
-    if (distancia_act > distancia){sentido = false;dist_mov = (distancia_act - distancia);}    
-    if (distancia_act < distancia){sentido = true;dist_mov = (distancia - distancia_act);}
-    if (distancia_act == distancia) dist_mov = 0;    
+bool control_giro(int limite_inferior, int limite_superior,int distancia_act, int distancia){
+  if ((distancia >= limite_inferior) and (distancia <= limite_superior)){ // maximo movimiento es 100 mm
+    if (distancia_act > distancia){sentido = false;dist_mov = (distancia_act - distancia); }//Serial.println("Sentido: false");}    
+    if (distancia_act < distancia){sentido = true;dist_mov = (distancia - distancia_act); }//Serial.println("Sentido: true");}
+    if (distancia_act == distancia) {dist_mov = 0; }//    Serial.println("Dist_mov =0");}
   }
   else{ Serial.println("Distancia no permitida"); Errores=1;}
   return sentido;
@@ -468,14 +462,22 @@ bool control_giro(int limite_inferior_riel, int limite_superior_riel,int distanc
 int controlDriver(int dist_mov, int aux_dist_actual, bool sentido,int step, int dir){ 
   const int factor_vueltas = 200; //200 - una vuelta entera. (0.7 mm de paso)
   int pasos= dist_mov * factor_vueltas;
-  if((pasos == 0)){digitalWrite(step,LOW);}
+  if((pasos == 0)){mover_motor(dir,step,sentido,0);}
   else if(pasos>0){
     mover_motor(dir, step, sentido, 100);  
     conta_pasos++;
     if(sentido){// giro positivo
-      if(conta_pasos == 200){ aux_dist_actual++; conta_pasos=0;}// sumo cuenta distancia
+      if(conta_pasos == 200){ aux_dist_actual++; conta_pasos=0;
+        Serial.println("Motor Foco: "+ String(distancia_act_foco));
+        Serial.println("Motor pantalla: "+ String(distancia_act_pantalla));
+        Serial.println("Motor Lente div: "+ String(distancia_act_lente_div));
+      }// sumo cuenta distancia
     }else{      //giro negativo
-      if(conta_pasos == 200){ aux_dist_actual--; conta_pasos=0;}// resto cuenta distancia
+      if(conta_pasos == 200){ aux_dist_actual--; conta_pasos=0;
+        Serial.println("Motor Foco: "+ String(distancia_act_foco));
+        Serial.println("Motor pantalla: "+ String(distancia_act_pantalla));
+        Serial.println("Motor Lente div: "+ String(distancia_act_lente_div));      
+      }// resto cuenta distancia
     }
   }
   return aux_dist_actual;
@@ -488,38 +490,30 @@ int controlDriver(int dist_mov, int aux_dist_actual, bool sentido,int step, int 
 void busco_cero(){
   while (!bandera_cero)
   {
-//    if(servo_diafragma.read()!=0){ mover_servo(servo_diafragma,0); }
-//    if(servo_lente.read()!=0){ mover_servo(servo_lente,0); }
     mover_servo(servo_diafragma,0);
     mover_servo(servo_lente,0);
-    if(!digitalRead(M1_SW_inicio)){ distancia_actual_foco=0; Serial.println("Motor 1 puesto a cero");
+    if(!digitalRead(M1_SW_fin) or !digitalRead(M2_SW_fin) or !digitalRead(M3_SW_fin)){
+      mover_motor(M1_Direction,M1_Step,AntiHorario,0);
+      mover_motor(M2_Direction,M2_Step,AntiHorario,0);
+      mover_motor(M3_Direction,M3_Step,AntiHorario,0);
     }else{
-      if(distancia_actual_foco!=0){
-        digitalWrite(M1_Enable,LOW);
-        mover_motor(M1_Direction,M1_Step,AntiHorario,75);
-        digitalWrite(M1_Led,HIGH);
-      }else{digitalWrite(M1_Led,LOW);digitalWrite(M1_Enable,HIGH);}
-    }
-    if(!digitalRead(M2_SW_inicio)){ distancia_act_lente_div=0; Serial.println("Motor 2 puesto a cero");
-    }else{
-      if(distancia_act_lente_div!=0){
-        digitalWrite(M2_Enable,LOW);
-        mover_motor(M2_Direction,M2_Step,AntiHorario,75);
-        digitalWrite(M2_Led,HIGH);
-      }else{digitalWrite(M2_Led,LOW);digitalWrite(M2_Enable,HIGH);}
-    }
-    if(!digitalRead(M3_SW_inicio)){ distancia_act_pantalla=0; Serial.println("Motor 3 puesto a cero");
-    }else{ 
-      if(distancia_act_pantalla!=0){
-        digitalWrite(M3_Enable,LOW);
-        mover_motor(M3_Direction,M3_Step,AntiHorario,75);
-        digitalWrite(M3_Led,HIGH);
-      }else{digitalWrite(M3_Led,LOW);digitalWrite(M3_Enable,HIGH);}
-    }
-    if(distancia_actual_foco==0 and distancia_act_lente_div==0 and distancia_act_pantalla==0 and servo_diafragma.read()==0 and servo_lente.read()==0) {
-      digitalWrite(M1_Led,LOW);digitalWrite(M2_Led,LOW);digitalWrite(M3_Led,LOW);
-      digitalWrite(M1_Enable,HIGH);digitalWrite(M2_Enable,HIGH);digitalWrite(M3_Enable,HIGH);
-      bandera_cero=true;
+      if(!digitalRead(M1_SW_inicio)){ distancia_act_foco=min_mot_f; Serial.println("Motor 1 puesto a cero");digitalWrite(M1_Led,LOW);
+      }else{
+          digitalWrite(M1_Enable,LOW);mover_motor(M1_Direction,M1_Step,AntiHorario,75);digitalWrite(M1_Led,HIGH);
+      }
+      if(!digitalRead(M2_SW_inicio)){ distancia_act_pantalla=min_mot_p; Serial.println("Motor 2 puesto a cero");digitalWrite(M2_Led,LOW);
+      }else{
+          digitalWrite(M2_Enable,LOW);mover_motor(M2_Direction,M2_Step,AntiHorario,75);digitalWrite(M2_Led,HIGH);
+      }
+      if(!digitalRead(M3_SW_inicio)){ distancia_act_lente_div=min_mot_l1; Serial.println("Motor 3 puesto a cero");digitalWrite(M3_Led,LOW);
+      }else{ 
+          digitalWrite(M3_Enable,LOW);mover_motor(M3_Direction,M3_Step,AntiHorario,75);digitalWrite(M3_Led,HIGH);
+      }
+      if(!digitalRead(M1_SW_inicio) and !digitalRead(M2_SW_inicio) and !digitalRead(M3_SW_inicio) and servo_diafragma.read()==0 and servo_lente.read()==0) {
+//        digitalWrite(M1_Led,LOW);digitalWrite(M2_Led,LOW);digitalWrite(M3_Led,LOW);
+        digitalWrite(M1_Enable,HIGH);digitalWrite(M2_Enable,HIGH);digitalWrite(M3_Enable,HIGH);
+        bandera_cero=true;
+      }
     }
   }
 }
@@ -533,7 +527,7 @@ void busco_cero(){
  * @param velocidad Indica la velocidad de giro. Es porcentual. 0 - 100%. Si es cero el motor se para.
 */
 void mover_motor(int dir, int step, int sentido, int velocidad){
-  stepDelay = 1000 + (10000 -(velocidad*100)) ;
+  stepDelay = 200 + (10000 -(velocidad*100)) ;
   if(velocidad !=0){
     digitalWrite(dir,sentido);  
     digitalWrite(step, HIGH);
