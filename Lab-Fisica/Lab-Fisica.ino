@@ -462,8 +462,7 @@ bool control_giro(int limite_inferior, int limite_superior,int distancia_act, in
 int controlDriver(int dist_mov, int aux_dist_actual, bool sentido,int step, int dir){ 
   const int factor_vueltas = 200; //200 - una vuelta entera. (0.7 mm de paso)
   int pasos= dist_mov * factor_vueltas;
-  if((pasos == 0)){mover_motor(dir,step,sentido,0);}
-  else if(pasos>0){
+  if(pasos>0){
     mover_motor(dir, step, sentido, 100);  
     conta_pasos++;
     if(sentido){// giro positivo
@@ -479,7 +478,7 @@ int controlDriver(int dist_mov, int aux_dist_actual, bool sentido,int step, int 
         Serial.println("Motor Lente div: "+ String(distancia_act_lente_div));      
       }// resto cuenta distancia
     }
-  }
+  }else{digitalWrite(step,LOW);}
   return aux_dist_actual;
 }
 
@@ -509,8 +508,8 @@ void busco_cero(){
       }else{ 
           digitalWrite(M3_Enable,LOW);mover_motor(M3_Direction,M3_Step,AntiHorario,75);digitalWrite(M3_Led,HIGH);
       }
-      if(!digitalRead(M1_SW_inicio) and !digitalRead(M2_SW_inicio) and !digitalRead(M3_SW_inicio) and servo_diafragma.read()==0 and servo_lente.read()==0) {
-//        digitalWrite(M1_Led,LOW);digitalWrite(M2_Led,LOW);digitalWrite(M3_Led,LOW);
+      if(!digitalRead(M1_SW_inicio) and !digitalRead(M2_SW_inicio) and !digitalRead(M3_SW_inicio) and servo_diafragma.read()==90 and servo_lente.read()==90) {
+        distancia_act_foco = min_mot_f; distancia_act_pantalla=min_mot_p; distancia_act_lente_div=min_mot_l1;
         digitalWrite(M1_Enable,HIGH);digitalWrite(M2_Enable,HIGH);digitalWrite(M3_Enable,HIGH);
         bandera_cero=true;
       }
