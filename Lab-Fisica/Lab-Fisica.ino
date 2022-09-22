@@ -459,9 +459,9 @@ bool control_giro(int limite_inferior, int limite_superior,int distancia_act, in
  * @param dir pin de salida de dirección del motor
  * @return int - devuelve el valor de la distancia actual
  */
-int controlDriver(int dist_mov, int aux_dist_actual, bool sentido,int step, int dir){ 
+int controlDriver(int dist_mov_1, int aux_dist_actual, bool sentido,int step, int dir){ 
   const int factor_vueltas = 200; //200 - una vuelta entera. (0.7 mm de paso)
-  int pasos= dist_mov * factor_vueltas;
+  int pasos= dist_mov_1 * factor_vueltas;
   if(pasos>0){
     mover_motor(dir, step, sentido, 100);  
     conta_pasos++;
