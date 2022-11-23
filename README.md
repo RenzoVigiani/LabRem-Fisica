@@ -90,7 +90,7 @@ Pin Out
 
 **PCB**
 
-![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_Virtual.png)
+![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_virtual.png)
 
 ![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_real.png)
 
