@@ -85,17 +85,37 @@ Pin Out
 <img alt = "Arduino Mega Pro" src="https://raw.githubusercontent.com/RenzoVigiani/LabRem-SistemasDig/main/Imagenes/Arduino-Mega-Pro.png">
 
 **Esquematico**
-![Lab de Fisica 1](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Esquematico.png)
+
+![Esquematico](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Esquematico.png)
+
+**PCB**
+
+![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_Virtual.png)
+
+![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_real.png)
 
 **Datasheets**
 - [Servo Motor MG966R](https://github.com/RenzoVigiani/LabRem-Fisica/blob/main/datasheets/MG996R-Datasheet.pdf)
 - [Motor Paso a paso](https://github.com/RenzoVigiani/LabRem-Fisica/blob/main/datasheets/MG996R-Datasheet.pdf)
 
 **Diagrama general**
-![Lab de Fisica 1](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_1.png)
+
+![Vista General Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_virtual_general.png)
 
 **Diagrama Vista superior**
-![Lab de Fisica 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_2.png)
+
+![Vista Superior Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_virtual_superior.png)
 
 **Diagrama Vista frontal**
-![Lab de Fisica 3](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_3.png)
+
+![Vista Frontal Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_virtual_frontal.png)
+
+**Soportes 3D**
+
+![Soporte 3D Lente Divergente](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Div.png)
+
+![Soporte 3D Lente Diafragma](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Diafragma.png)
+
+![Soporte 3D barra central](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_barra_central.png)
+
+![Soporte 3D Ensamblado](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_ensamblado.png)
