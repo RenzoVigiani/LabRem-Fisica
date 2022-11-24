@@ -106,16 +106,22 @@ Pin Out
 
 ![Vista Superior Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_virtual_superior.png)
 
+![Vista Superior Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_virtual_distancias.png)
+
+
+
 **Diagrama Vista frontal**
 
 ![Vista Frontal Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/diagrama_virtual_frontal.png)
 
 **Soportes 3D**
+|            |   |
+|-------------------------|---------|
+| ![Soporte 3D Lente Divergente](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Div.png)  |    ![Soporte 3D Lente Divergente Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Div_real.jpg)|
+| ![Soporte 3D Lente Diafragma](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Diafragma.png)|![Soporte 3D Lente Diafragma Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Diafragma_real.jpg)|
+| ![Caja Lampara Led](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Caja_1.jpg)  | ![Caja Lampara Led 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Caja_3.jpg)  |
+| ![Caja Lampara Led Ensamblado](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte+caja_1.jpg) | ![Caja Lampara Led Ensamblado 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte+caja_2.jpg) |
 
-![Soporte 3D Lente Divergente](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Div.png)
 
-![Soporte 3D Lente Diafragma](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Diafragma.png)
 
-![Soporte 3D barra central](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_barra_central.png)
 
-![Soporte 3D Ensamblado](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_ensamblado.png)
