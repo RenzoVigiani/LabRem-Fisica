@@ -31,8 +31,8 @@
             "includePath": [
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\standard",
-                "C:\\Users\\rvigiani\\OneDrive - Noanet S.A\\Documentos\\Arduino\\libraries\\arduino_869624\\src",
-                "C:\\Users\\rvigiani\\OneDrive - Noanet S.A\\Documentos\\Arduino\\libraries\\UIPEthernet",
+                "C:\\Users\\melopez\\Documents\\Arduino\\libraries\\ArduinoJson-6.x\\src",
+                "C:\\Users\\melopez\\Documents\\Arduino\\libraries\\UIPEthernet",
                 "C:\\Program Files (x86)\\Arduino\\libraries\\Servo\\src",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
@@ -45,7 +45,7 @@
             "cppStandard": "c++11",
             "defines": [
                 "F_CPU=16000000L",
-                "ARDUINO=10818",
+                "ARDUINO=10816",
                 "ARDUINO_AVR_UNO",
                 "ARDUINO_ARCH_AVR",
                 "__DBL_MIN_EXP__=(-125)",
