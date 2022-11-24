@@ -89,10 +89,12 @@ Pin Out
 ![Esquematico](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Esquematico.png)
 
 **PCB**
+|||
+|-|-|
+|![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_virtual.png)|![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/board/Placa-back.jpg)|
+|![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/board/Placa-frente_1.jpg)|![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/board/Componentes_3.jpg)|
 
-![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_virtual.png)
 
-![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_real.png)
 
 **Datasheets**
 - [Servo Motor MG966R](https://github.com/RenzoVigiani/LabRem-Fisica/blob/main/datasheets/MG996R-Datasheet.pdf)
@@ -117,10 +119,12 @@ Pin Out
 **Soportes 3D**
 |            |   |
 |-------------------------|---------|
-| ![Soporte 3D Lente Divergente](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Div.png)  |    ![Soporte 3D Lente Divergente Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Div_real.jpg)|
-| ![Soporte 3D Lente Diafragma](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Soporte_3D_Lente_Diafragma.png)|![Soporte 3D Lente Diafragma Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Diafragma_real.jpg)|
-| ![Caja Lampara Led](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Caja_1.jpg)  | ![Caja Lampara Led 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Caja_3.jpg)  |
+| ![Soporte 3D Lente Divergente](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Div.png)  |    ![Soporte 3D Lente Divergente Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Div_real.jpg)|
+| ![Soporte 3D Lente Diafragma](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/skp_diseños_2.png)|![Soporte 3D Lente Diafragma Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte_3D_Lente_Diafragma_real..jpg)|
+| ![Caja Lampara Led](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/skp_diseños_3.png)  | ![Caja Lampara Led 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Caja_3.jpg)  |
 | ![Caja Lampara Led Ensamblado](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte+caja_1.jpg) | ![Caja Lampara Led Ensamblado 2](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/Soporte+caja_2.jpg) |
+| ![Soporte motor paso a paso](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/pap_3.jpg) | ![Soporte motor paso a paso](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/pap_2.jpg) |
+| ![Soporte motor paso a paso x3](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/pap_4.jpg) | ![Soporte motor paso a paso x3](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/design_3D/pap_5.jpg) |
 
 
 
