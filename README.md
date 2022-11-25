@@ -100,8 +100,8 @@ Esta placa incorpora todos los drivers e indicadores necesarios para el funciona
 
 ||**PCB**||
 |-|-|-|
-||![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/PCB_virtual.png)||
-||![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_virtual-2.png)||
+||![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/Pcb_virtual.png)||
+||![Pcb Virtual](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/PCB_Virtual-2.png)||
 ||![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/board/Placa-back.jpg)||
 ||![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/board/Placa-frente_1.jpg)||
 ||![Pcb Real](https://raw.githubusercontent.com/RenzoVigiani/LabRem-Fisica/main/Imagenes/board/Componentes_3.jpg)||
