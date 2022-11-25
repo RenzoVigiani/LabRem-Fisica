@@ -121,6 +121,7 @@ Esta placa incorpora todos los drivers e indicadores necesarios para el funciona
 
 
 **Datasheets Actuadores**
+- [Recopilación de Datasheets](https://renzovigiani.notion.site/adea4f735c994faaa2f919a7e5105e9d?v=83070c8c05d34c02905fc370e37b802a)
 - [Servo Motor MG966R](https://github.com/RenzoVigiani/LabRem-Fisica/blob/main/datasheets/MG996R-Datasheet.pdf)
 - [Motor Paso a paso](https://github.com/RenzoVigiani/LabRem-Fisica/blob/main/datasheets/MG996R-Datasheet.pdf)
 - [Lampara Led](http://wayjun.com/Datasheet/Led/3W%20High%20Power%20LED.pdf)
